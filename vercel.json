@@ -1,0 +1,33 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "next.config.mjs",
+      "use": "@vercel/next"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/api/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/$1"
+    }
+  ],
+  "env": {
+    "BOT_TOKEN": "@bot_token",
+    "OPENAI_API_KEY": "@openai_api_key"
+  },
+  "functions": {
+    "api/webhook/route.js": {
+      "maxDuration": 15,
+      "memory": 1024,
+      "runtime": "nodejs18.x"
+    }
+  },
+  "framework": "nextjs",
+  "regions": ["fra1"],
+  "public": true
+}

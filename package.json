@@ -1,0 +1,17 @@
+{
+  "name": "ndisamba-connect",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "next": "^14.2.33",
+    "node-telegram-bot-api": "^0.66.0",
+    "openai": "^4.58.1",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  }
+}
