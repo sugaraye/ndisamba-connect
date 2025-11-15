@@ -5,6 +5,7 @@ export async function POST(req) {
   return new Response("OK");
 }
 
+
 export async function GET() {
   console.log("👀 GET webhook appelé");
   return new Response("TEST GET OK");
