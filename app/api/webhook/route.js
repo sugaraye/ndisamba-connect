@@ -312,6 +312,19 @@ const bot = globalForBot._sambaBot;
 // ---------------------------------------------------------
 // 🌐 HANDLERS POUR NEXT.JS WEBHOOK
 // ---------------------------------------------------------
+export async function POST(req) {
+  console.log("🔥 Webhook appelé !");
+  try {
+    const update = await req.json();
+    console.log("📩 Update reçu :", update);
+
+    await bot.handleUpdate(update);
+    return new Response("OK");
+  } catch (e) {
+    console.error("BOT ERROR:", e);
+    return new Response("ERROR", { status: 500 });
+  }
+}
 
 export async function POST(req) {
   try {
