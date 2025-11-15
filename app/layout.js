@@ -2,7 +2,7 @@ import "./globals.css";
 
 export const metadata = {
   title: "NdiSamba Connect",
-  description: "Le portail interactif du Groupe Ndi Samba Formation",
+  description: "Portail numérique du Groupe Ndi Samba Formations",
 };
 
 export default function RootLayout({ children }) {
