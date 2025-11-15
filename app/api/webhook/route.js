@@ -7,20 +7,21 @@ export const runtime = "nodejs";
 // -------------------------
 const bot = new Bot(process.env.BOT_TOKEN);
 
-// Commande /start
+// Enregistrer les commandes et handlers
 bot.command("start", (ctx) =>
   ctx.reply("🚀 NdiSamba Connect est opérationnel !")
 );
 
-// Commande /help
 bot.command("help", (ctx) =>
   ctx.reply("Voici les commandes disponibles 👍")
 );
 
-// Réponse à tout message texte
 bot.on("message:text", (ctx) =>
   ctx.reply("Message reçu ✔️")
 );
+
+// ⭐⭐⭐ IMPORTANT : INITIALISER LE BOT ⭐⭐⭐
+await bot.init();
 
 // -------------------------
 // WEBHOOK HANDLER
@@ -30,7 +31,7 @@ export async function POST(req) {
     const update = await req.json();
     console.log("🔥 Webhook POST reçu :", JSON.stringify(update, null, 2));
 
-    // Envoie la mise à jour à Grammy
+    // Envoie la mise à jour à Grammy pour traitement
     await bot.handleUpdate(update);
 
     return new Response("OK", { status: 200 });
