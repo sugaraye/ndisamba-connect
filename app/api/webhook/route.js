@@ -1,13 +1,13 @@
-import { Bot } from "grammy";
+import { Bot, webhookCallback } from "grammy";
 
 export const runtime = "nodejs";
 
 // -------------------------
-// INITIALISATION BOT
+// INITIALISATION DU BOT
 // -------------------------
 const bot = new Bot(process.env.BOT_TOKEN);
 
-// Enregistrer les commandes et handlers
+// Commandes
 bot.command("start", (ctx) =>
   ctx.reply("🚀 NdiSamba Connect est opérationnel !")
 );
@@ -20,27 +20,28 @@ bot.on("message:text", (ctx) =>
   ctx.reply("Message reçu ✔️")
 );
 
-// ⭐⭐⭐ IMPORTANT : INITIALISER LE BOT ⭐⭐⭐
-await bot.init();
+// Callback spécial pour Vercel/Next.js
+const handleUpdate = webhookCallback(bot, "std/http");
 
 // -------------------------
-// WEBHOOK HANDLER
+// HANDLER POST
 // -------------------------
 export async function POST(req) {
   try {
-    const update = await req.json();
-    console.log("🔥 Webhook POST reçu :", JSON.stringify(update, null, 2));
-
-    // Envoie la mise à jour à Grammy pour traitement
-    await bot.handleUpdate(update);
-
-    return new Response("OK", { status: 200 });
-  } catch (err) {
-    console.error("❌ Erreur Webhook :", err);
+    const body = await req.json();
+    return await handleUpdate({
+      request: req,
+      respondWith: (response) => response,
+    });
+  } catch (e) {
+    console.error("❌ Erreur Webhook :", e);
     return new Response("ERROR", { status: 500 });
   }
 }
 
-export async function GET() {
-  return new Response("Webhook OK");
+// -------------------------
+// TEST GET
+// -------------------------
+export function GET() {
+  return new Response("Webhook OK", { status: 200 });
 }
