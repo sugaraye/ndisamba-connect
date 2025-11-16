@@ -6,12 +6,14 @@ const bot = new Bot(process.env.BOT_TOKEN);
 
 // Commandes simples
 bot.command("start", (ctx) =>
-  ctx.reply("🚀 NdiSamba Connect est opérationnel !")
+  ctx.reply("🚀 NdiSamba Connect est opérationnel depuis 2025!")
 );
 
 bot.on("message:text", (ctx) =>
   ctx.reply("Message reçu ✔️")
 );
+
+
 
 // Webhook Handler (compatible Edge)
 export async function POST(req) {
