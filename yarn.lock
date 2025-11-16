@@ -156,7 +156,7 @@ loose-envify@^1.1.0:
 
 marked@^17.0.0:
   version "17.0.0"
-  resolved "https://registry.npmjs.org/marked/-/marked-17.0.0.tgz"
+  resolved "https://registry.yarnpkg.com/marked/-/marked-17.0.0.tgz#62ae3f2ea8346025ae24a24ad4b78982655ef4e3"
   integrity sha512-KkDYEWEEiYJw/KC+DVm1zzlpMQSMIu6YRltkcCvwheCp8HWPXCk9JwOmHJKBlGfzcpzcIt6x3sMnTsRm/51oDg==
 
 ms@^2.1.3:
