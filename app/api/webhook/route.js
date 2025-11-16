@@ -42,6 +42,7 @@ export async function POST(req) {
 // -------------------------
 // TEST GET
 // -------------------------
-export function GET() {
-  return new Response("Webhook OK", { status: 200 });
+export async function GET() {
+  return new Response(`TOKEN: ${process.env.BOT_TOKEN ? "OK" : "MISSING"}`);
 }
+
