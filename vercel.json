@@ -12,9 +12,5 @@
       "src": "/(.*)",
       "dest": "/$1"
     }
-  ],
-  "env": {
-    "BOT_TOKEN": "@bot_token",
-    "OPENAI_API_KEY": "@openai_api_key"
+  ]
   }
-}
