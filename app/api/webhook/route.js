@@ -1,18 +1,32 @@
-import { Bot } from "grammy";
+import { Bot } from "grammy/web"; // version Web compatible Edge
 
-export const runtime = "edge"; // OBLIGATOIRE sur Vercel
+export const runtime = "edge"; // obligatoire sur Vercel
 
 const bot = new Bot(process.env.BOT_TOKEN);
 
-bot.command("start", (ctx) => ctx.reply("🚀 Bot opérationnel !"));
-bot.on("message:text", (ctx) => ctx.reply("Message reçu ✔️"));
+// Commandes simples
+bot.command("start", (ctx) =>
+  ctx.reply("🚀 NdiSamba Connect est opérationnel !")
+);
 
+bot.on("message:text", (ctx) =>
+  ctx.reply("Message reçu ✔️")
+);
+
+// Webhook Handler (compatible Edge)
 export async function POST(req) {
-  const update = await req.json();
-  await bot.handleUpdate(update);
-  return new Response("OK", { status: 200 });
+  try {
+    const update = await req.json();
+    console.log("🔥 Update reçu :", update);
+
+    await bot.handleUpdate(update);
+    return new Response("OK");
+  } catch (err) {
+    console.error("❌ Erreur POST :", err);
+    return new Response("ERROR", { status: 500 });
+  }
 }
 
-export function GET() {
-  return new Response("Webhook OK", { status: 200 });
+export async function GET() {
+  return new Response("Webhook OK");
 }
