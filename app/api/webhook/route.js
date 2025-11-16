@@ -1,48 +1,31 @@
-import { Bot, webhookCallback } from "grammy";
+import { Bot } from "grammy";
 
-export const runtime = "nodejs";
+export const runtime = "edge"; // 🔥 plus rapide et propre pour Telegram
 
-// -------------------------
-// INITIALISATION DU BOT
-// -------------------------
-const bot = new Bot(process.env.BOT_TOKEN);
+// On initialise le bot UNE FOIS
+const token = process.env.BOT_TOKEN;
+if (!token) console.error("❌ BOT_TOKEN manquant dans Vercel !");
+const bot = new Bot(token);
 
-// Commandes
-bot.command("start", (ctx) =>
-  ctx.reply("🚀 NdiSamba Connect est opérationnel !")
-);
+// Commands
+bot.command("start", (ctx) => ctx.reply("🚀 Bot opérationnel !"));
+bot.command("help", (ctx) => ctx.reply("Liste des commandes…"));
+bot.on("message", (ctx) => ctx.reply("Message reçu ✔️"));
 
-bot.command("help", (ctx) =>
-  ctx.reply("Voici les commandes disponibles 👍")
-);
-
-bot.on("message:text", (ctx) =>
-  ctx.reply("Message reçu ✔️")
-);
-
-// Callback spécial pour Vercel/Next.js
-const handleUpdate = webhookCallback(bot, "std/http");
-
-// -------------------------
-// HANDLER POST
-// -------------------------
 export async function POST(req) {
   try {
-    const body = await req.json();
-    return await handleUpdate({
-      request: req,
-      respondWith: (response) => response,
-    });
+    const update = await req.json();
+    console.log("🔥 Update reçue :", update);
+
+    await bot.handleUpdate(update);
+
+    return new Response("OK", { status: 200 });
   } catch (e) {
     console.error("❌ Erreur Webhook :", e);
     return new Response("ERROR", { status: 500 });
   }
 }
 
-// -------------------------
-// TEST GET
-// -------------------------
 export async function GET() {
-  return new Response(`TOKEN: ${process.env.BOT_TOKEN ? "OK" : "MISSING"}`);
+  return new Response("Webhook actif");
 }
-
