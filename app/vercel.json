@@ -1,7 +1,0 @@
-{
-  "functions": {
-    "api/webhook/route.js": {
-      "runtime": "nodejs20.x"
-    }
-  }
-}
