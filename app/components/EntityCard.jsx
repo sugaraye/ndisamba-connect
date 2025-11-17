@@ -1,24 +1,34 @@
-import Link from "next/link";
+import Link from 'next/link';
+import Image from 'next/image';
 
 export default function EntityCard({ entity }) {
   return (
-    <div
-      className="entity-card bg-white rounded shadow overflow-hidden"
-      data-name={entity.name}
-    >
-      <Link href={`/entites/${entity.slug}`}>
-        <img
+    <article className="bg-white rounded-lg shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition-shadow">
+      <div className="h-48 relative">
+        <Image
           src={entity.image}
           alt={entity.name}
-          className="w-full h-40 object-cover"
+          fill
+          className="object-cover"
         />
-        <div className="p-4">
-          <h3 className="font-semibold text-lg">{entity.name}</h3>
-          <p className="text-sm text-gray-600 mt-2 line-clamp-2">
-            {entity.description}
-          </p>
+      </div>
+      
+      <div className="p-6">
+        <div className="mb-4">
+          <h3 className="text-xl font-bold text-blue-900 mb-2">{entity.name}</h3>
+          <div className="text-sm text-gray-600 mb-2">{entity.site}</div>
+          <p className="text-gray-700">{entity.description}</p>
         </div>
-      </Link>
-    </div>
+        
+        <div>
+          <Link 
+            href={entity.link}
+            className="bg-blue-900 text-white px-4 py-2 rounded hover:bg-blue-800 transition-colors inline-block"
+          >
+            Voir plus
+          </Link>
+        </div>
+      </div>
+    </article>
   );
 }

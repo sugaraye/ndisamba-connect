@@ -1,48 +1,8 @@
-// ❗ TEMP : Simulation de posts (en attendant ton vrai système)
-const getAllPosts = () => [
-  {
-    slug: "lancement-nouvelle-filiere",
-    title: "Lancement d’une nouvelle filière",
-    date: "2025-02-01",
-    author: "Direction Générale",
-  },
-  {
-    slug: "partenariat-international",
-    title: "Nouveau partenariat international",
-    date: "2025-01-15",
-    author: "Service Coopération",
-  }
-];
-
-import Link from "next/link";
-
-export default function ActualitesPage() {
-  const posts = getAllPosts();
-
+export default function Actualites() {
   return (
-    <div className="max-w-6xl mx-auto p-6">
-      <h1 className="text-4xl font-bold text-blue-900 mb-6">
-        Actualités & Projets
-      </h1>
-
-      <div className="grid md:grid-cols-2 gap-6">
-        {posts.map((post) => (
-          <div key={post.slug} className="bg-white rounded shadow p-6">
-            <h2 className="text-2xl font-semibold">{post.title}</h2>
-
-            <p className="text-gray-500 text-sm">
-              Publié le {post.date} — {post.author}
-            </p>
-
-            <Link
-              href={`/actualites/${post.slug}`}
-              className="text-blue-700 underline mt-4 inline-block"
-            >
-              Lire l’article →
-            </Link>
-          </div>
-        ))}
-      </div>
+    <div className="max-w-7xl mx-auto px-4 py-12">
+      <h1 className="text-3xl font-bold text-blue-900 mb-8">Actualités</h1>
+      <p>Page en construction</p>
     </div>
   );
 }
