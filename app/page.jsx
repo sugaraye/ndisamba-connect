@@ -1,145 +1,74 @@
 import EntityCard from './components/EntityCard';
+import Image from 'next/image';
 
 export default function Home() {
   const entities = [
     {
       id: 1,
       name: "Institut Universitaire Joseph Ndi Samba",
-      description: "Université, licences, masters",
+      description: "Enseignement supérieur universitaire avec licences et masters professionnels",
       site: "universitedisamba.com",
       image: "/assets/IUT.jpg",
-      link: "/entites/iut"
+      link: "/entites/iujs",
+      category: "Éducation"
     },
-    {
-      id: 2,
-      name: "Ndi Samba Polytech",
-      description: "BTS, licences, cycle ingénieur",
-      site: "ndisambapolytech.com — Douala",
-      image: "/assets/Polytech.jpg",
-      link: "/entites/polytech"
-    },
-    {
-      id: 3,
-      name: "Institut Samba Secondaire",
-      description: "Collège, lycée",
-      site: "Enseignement secondaire",
-      image: "/assets/Secondaire.jpg",
-      link: "/entites/secondaire"
-    },
-    {
-      id: 4,
-      name: "NS Logistique Transit France",
-      description: "Transit et logistique international",
-      site: "nslogistique.fr — Paris / Saint-Étienne",
-      image: "/assets/Logistique-France.jpg",
-      link: "/entites/logistique-france"
-    },
-    {
-      id: 5,
-      name: "GNS Douane-Transit-Logistique Cameroun",
-      description: "Dédouanement et transit",
-      site: "Siège: Douala — Agence: Kribi",
-      image: "/assets/Douane-Cameroun.jpg",
-      link: "/entites/douane"
-    },
-    {
-      id: 6,
-      name: "La Tchaux Hotel & Resorts",
-      description: "Hôtellerie, piscine, navette",
-      site: "Ekoko II, Nsimalen — latchauxhotelyaounde.com",
-      image: "/assets/Hotel-Tchaux.jpg",
-      link: "/entites/tchaux"
-    },
-    {
-      id: 7,
-      name: "GNSF Avocats & Associés",
-      description: "Droit des affaires",
-      site: "Conseil juridique",
-      image: "/assets/Avocats.jpg",
-      link: "/entites/avocats"
-    },
-    {
-      id: 8,
-      name: "Cabinet-Conseil Afam Services",
-      description: "Conseil en gestion",
-      site: "afam-services.com — Yaoundé",
-      image: "/assets/Afam.jpg",
-      link: "/entites/afam"
-    },
-    {
-      id: 9,
-      name: "Centre Médical RIRCO",
-      description: "Santé et diagnostics",
-      site: "Soins médicaux et analyses",
-      image: "/assets/RIRCO.jpg",
-      link: "/entites/rirco"
-    },
-    {
-      id: 10,
-      name: "Garage Samba Automobiles",
-      description: "Mécanique et services",
-      site: "Entretien et réparation",
-      image: "/assets/Garage.jpg",
-      link: "/entites/garage"
-    },
-    {
-      id: 11,
-      name: "Ndi Samba Online",
-      description: "Cours en ligne et certifications",
-      site: "elearningsamba.com — e-learning",
-      image: "/assets/Online.jpg",
-      link: "/entites/online"
-    },
-    {
-      id: 12,
-      name: "Campus Latina Espagne",
-      description: "Programmes internationaux",
-      site: "Logroño — campuslatina.es",
-      image: "/assets/Campus-Espagne.jpg",
-      link: "/entites/campus-espagne"
-    }
+    // ... vos autres entités
   ];
 
   return (
-    <div>
-      {/* Section Hero */}
-      <section className="bg-gradient-to-r from-blue-900 to-blue-700 text-white py-20">
-        <div className="max-w-7xl mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">
-            Bienvenue sur NdiSamba Connect
+    <div className="min-h-screen bg-gradient-to-b from-primary-50 to-white">
+      {/* Section Hero améliorée */}
+      <section className="bg-gradient-to-r from-primary-900 via-primary-800 to-secondary-700 text-white py-20 relative overflow-hidden">
+        <div className="absolute inset-0 bg-black/20"></div>
+        <div className="max-w-7xl mx-auto px-4 text-center relative z-10">
+          <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
+            Bienvenue sur <span className="text-secondary-300">NdiSamba Connect</span>
           </h1>
-          <p className="text-xl mb-8 max-w-3xl mx-auto">
-            Le portail numérique du Groupe Ndi Samba Formation et Partenaires — centralise nos écoles, services et projets.
+          <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto leading-relaxed">
+            Le portail numérique du Groupe Ndi Samba Formation et Partenaires — 
+            centralise nos écoles, services et projets d'excellence.
           </p>
-          <a 
-            href="#entites" 
-            className="bg-white text-blue-900 font-semibold px-8 py-3 rounded-lg hover:bg-blue-100 transition-colors inline-block"
-          >
-            Découvrir le Groupe →
-          </a>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <a 
+              href="#entites" 
+              className="bg-white text-primary-900 font-bold px-8 py-4 rounded-lg hover:bg-gray-100 transition-all transform hover:scale-105 shadow-lg text-lg"
+            >
+              Découvrir le Groupe →
+            </a>
+            <a 
+              href="/contact" 
+              className="border-2 border-white text-white font-bold px-8 py-4 rounded-lg hover:bg-white hover:text-primary-900 transition-all text-lg"
+            >
+              Nous Contacter
+            </a>
+          </div>
         </div>
       </section>
 
       {/* Section Recherche */}
-      <div className="max-w-7xl mx-auto px-4 py-8">
-        <div className="max-w-2xl mx-auto">
+      <div className="max-w-4xl mx-auto px-4 py-12 -mt-8 relative z-20">
+        <div className="bg-white rounded-2xl shadow-xl p-2 border border-primary-200">
           <input 
             id="searchInput"
-            placeholder="Rechercher une entité..."
+            placeholder="🔍 Rechercher une entité, un service..."
             aria-label="Rechercher"
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-6 py-4 text-lg border-0 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500"
           />
         </div>
       </div>
 
       {/* Section Entités */}
-      <section id="entites" className="max-w-7xl mx-auto px-4 py-12">
-        <h2 className="text-3xl font-bold text-center mb-12 text-blue-900">
-          Entités du Groupe
-        </h2>
+      <section id="entites" className="max-w-7xl mx-auto px-4 py-16">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl md:text-5xl font-bold text-primary-900 mb-4">
+            Nos <span className="text-secondary-600">Entités</span>
+          </h2>
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            Découvrez l'écosystème complet du Groupe Ndi Samba Formation à travers nos différentes entités spécialisées.
+          </p>
+        </div>
         
-        {/* Cartes des entités */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8">
           {entities.map((ent) => (
             <EntityCard key={ent.id} entity={ent} />
           ))}
