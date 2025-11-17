@@ -1,20 +1,39 @@
-import { getPostBySlug } from "@/lib/posts";
-import { marked } from "marked";
+// lib/posts.js
+// Source simple d'articles pour ton site.
+// -> Facile à remplacer plus tard par des fichiers Markdown.
 
-export default function ArticlePage({ params }) {
-  const post = getPostBySlug(params.slug);
+const posts = [
+  {
+    slug: "lancement-nouvelle-filiere",
+    title: "Lancement d’une nouvelle filière à Ndi Samba Polytech",
+    date: "2025-02-01",
+    author: "Direction Générale",
+    content: `
+Nous sommes heureux d’annoncer l’ouverture d'une nouvelle filière professionnelle destinée à renforcer les compétences techniques de nos étudiants.
+    `
+  },
+  {
+    slug: "partenariat-international",
+    title: "Signature d’un partenariat international",
+    date: "2025-01-15",
+    author: "Service Coopération",
+    content: `
+Ndi Samba Polytech a signé un important partenariat avec plusieurs universités européennes dans le cadre du programme Erasmus+.
+    `
+  }
+];
 
-  return (
-    <div className="max-w-4xl mx-auto p-6">
-      <h1 className="text-4xl font-bold mb-3 text-blue-900">{post.title}</h1>
-      <p className="text-gray-500 mb-8">
-        Publié le {post.date} — {post.author}
-      </p>
+// Retourne tous les posts triés (du plus récent au plus ancien)
+export function getAllPosts() {
+  return posts.slice().sort((a, b) => new Date(b.date) - new Date(a.date));
+}
 
-      <article
-        className="prose prose-blue"
-        dangerouslySetInnerHTML={{ __html: marked(post.content) }}
-      />
-    </div>
-  );
+// Alias (si ton code attend getPosts)
+export function getPosts() {
+  return getAllPosts();
+}
+
+// Récupère un article par son slug
+export function getPostBySlug(slug) {
+  return posts.find((p) => p.slug === slug) || null;
 }

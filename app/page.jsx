@@ -1,7 +1,9 @@
 import EntityCard from "@/app/components/EntityCard";
-import { entities } from "@/lib/entities";
+import { getEntities } from "@/lib/entities"; // ✔ correction
 
 export default function Home() {
+  const entities = getEntities(); // ✔ correction
+
   return (
     <section className="max-w-7xl mx-auto p-6">
       <div className="text-center mb-8">
@@ -34,11 +36,11 @@ export default function Home() {
       />
 
       {/* Cartes des entités */}
-      <div className="grid md:grid-cols-3 gap-6">
-        {entities.map((ent) => (
-          <EntityCard key={ent.slug} entity={ent} />
-        ))}
-      </div>
+<div className="grid md:grid-cols-3 gap-6">
+  {entities.map((ent) => (
+    <EntityCard key={ent.id} entity={ent} />
+  ))}
+</div>
     </section>
   );
 }
