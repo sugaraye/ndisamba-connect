@@ -1,5 +1,9 @@
+// app/entites/page.jsx
+'use client';
+
 import EntityCard from '../components/EntityCard';
 import Link from 'next/link';
+import { useState, useMemo } from 'react';
 
 export default function EntitesPage() {
   const allEntities = [
@@ -24,7 +28,7 @@ export default function EntitesPage() {
       image: "/assets/images/polytech-lab.jpg",
       logo: "/assets/logos/logo-polytech.png",
       link: "/entites/polytech",
-      category: "Enseignement Technique",
+      category: "Enseignement Supérieur",
       locations: ["Face Chapelle EEC, Beedi-Marché, Douala"],
       phone: "+237 689 18 43 39",
       email: "contact@universitendisamba.com"
@@ -50,9 +54,9 @@ export default function EntitesPage() {
       image: "/assets/images/logistique-entrepot.jpg",
       logo: "/assets/logos/logo-logistique.png",
       link: "/entites/logistique-france",
-      category: "Logistique",
+      category: "Logistique, Groupage",
       locations: ["Siège: 60, rue Fracçois 1er, 75008 Paris", "Logistique: 56, rue des Alliés, 42000 Saint-Étienne. FRANCE"],
-      phone: "+33 7  59 44 54 03",
+      phone: "+33 7 59 44 54 03",
       email: "contact@nslogistique.fr"
     },
     {
@@ -102,7 +106,7 @@ export default function EntitesPage() {
       image: "/assets/images/afam-bureau.jpg",
       logo: "/assets/logos/logo-afam.png",
       link: "/entites/afam",
-      category: "Conseil",
+      category: "Conseil Entreprises",
       locations: ["Face Gazolent-Ekounou, Yaoundé. CAMEROUN"],
       phone: "+237 690 62 63 78",
       email: "contact@afam-services.com"
@@ -115,7 +119,7 @@ export default function EntitesPage() {
       image: "/assets/images/medical-centre.jpg",
       logo: "/assets/logos/logo-rirco.png",
       link: "/entites/rirco",
-      category: "Santé",
+      category: "Santé & Recherche Médicale",
       locations: ["Campus Ndi Samba, Tropicana, Yaoundé. CAMEROUN"],
       phone: "+237 696 16 49 32",
       email: "infos@groupendisambaformation.com"
@@ -128,7 +132,7 @@ export default function EntitesPage() {
       image: "/assets/images/garage-atelier.jpg",
       logo: "/assets/logos/logo-garage.png",
       link: "/entites/garage",
-      category: "Automobile",
+      category: "Mécanique Automobile",
       locations: ["Tropicana, Yaoundé. CAMEROUN"],
       phone: "+237 689 18 43 39",
       email: "infos@groupendisambaformation.com"
@@ -154,21 +158,41 @@ export default function EntitesPage() {
       image: "/assets/images/campus-espagne.jpg",
       logo: "/assets/logos/logo-campus.png",
       link: "/entites/campus-espagne",
-      category: "International",
+      category: "Mobilité académique",
       locations: ["Calle Albia de Castro, 4, Piso 1, Puerta A, 26004 Logroño La Rioja, ESPAÑA"],
       phone: "+34 631 314 723",
       email: "infos@groupendisambaformation.com"
     }
   ];
 
-  // Grouper les entités par catégorie
-  const entitiesByCategory = allEntities.reduce((acc, entity) => {
-    if (!acc[entity.category]) {
-      acc[entity.category] = [];
-    }
-    acc[entity.category].push(entity);
-    return acc;
-  }, {});
+  // États pour la recherche et le filtrage
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('Toutes');
+
+  // Extraire les catégories uniques
+  const categories = ['Toutes', ...new Set(allEntities.map(entity => entity.category))];
+
+  // Filtrer les entités
+  const filteredEntities = useMemo(() => {
+    return allEntities.filter(entity => {
+      const matchesSearch = searchTerm === '' || 
+        entity.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        entity.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        entity.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        entity.locations.some(location => 
+          location.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+      
+      const matchesCategory = selectedCategory === 'Toutes' || 
+        entity.category === selectedCategory;
+      
+      return matchesSearch && matchesCategory;
+    });
+  }, [searchTerm, selectedCategory]);
+
+  // Statistiques mises à jour
+  const entitiesCount = filteredEntities.length;
+  const categoriesCount = new Set(filteredEntities.map(entity => entity.category)).size;
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-primary-50 to-white py-12">
@@ -185,14 +209,30 @@ export default function EntitesPage() {
             Découvrez l'écosystème complet du Groupe Ndi Samba Formation à travers nos entités spécialisées.
           </p>
           
+          {/* Barre de recherche */}
+          <div className="max-w-2xl mx-auto mb-8">
+            <div className="relative">
+              <input
+                type="text"
+                placeholder="Rechercher une entité, une catégorie, une localisation..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full px-6 py-4 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent shadow-sm"
+              />
+              <div className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400">
+                🔍
+              </div>
+            </div>
+          </div>
+
           {/* Statistiques */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-2xl mx-auto mb-8">
             <div className="text-center p-4 bg-white rounded-lg shadow-md">
-              <div className="text-2xl font-bold text-primary-600">{allEntities.length}</div>
+              <div className="text-2xl font-bold text-primary-600">{entitiesCount}</div>
               <div className="text-sm text-gray-600">Entités</div>
             </div>
             <div className="text-center p-4 bg-white rounded-lg shadow-md">
-              <div className="text-2xl font-bold text-secondary-600">{Object.keys(entitiesByCategory).length}</div>
+              <div className="text-2xl font-bold text-secondary-600">{categoriesCount}</div>
               <div className="text-sm text-gray-600">Secteurs</div>
             </div>
             <div className="text-center p-4 bg-white rounded-lg shadow-md">
@@ -207,26 +247,80 @@ export default function EntitesPage() {
 
           {/* Filtres par catégorie */}
           <div className="flex flex-wrap justify-center gap-3 mb-12">
-            <button className="bg-primary-600 text-white px-4 py-2 rounded-full text-sm font-medium">
-              Toutes
-            </button>
-            {Object.keys(entitiesByCategory).map(category => (
+            {categories.map(category => (
               <button 
                 key={category}
-                className="bg-white text-primary-600 border border-primary-200 px-4 py-2 rounded-full text-sm font-medium hover:bg-primary-50 transition-colors"
+                onClick={() => setSelectedCategory(category)}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                  selectedCategory === category
+                    ? 'bg-primary-600 text-white shadow-md'
+                    : 'bg-white text-primary-600 border border-primary-200 hover:bg-primary-50'
+                }`}
               >
                 {category}
+                {category !== 'Toutes' && (
+                  <span className="ml-1 text-xs opacity-70">
+                    ({allEntities.filter(e => e.category === category).length})
+                  </span>
+                )}
               </button>
             ))}
           </div>
+
+          {/* Indicateur de résultats */}
+          {(searchTerm || selectedCategory !== 'Toutes') && (
+            <div className="mb-6 text-center">
+              <p className="text-gray-600">
+                {filteredEntities.length === 0 ? (
+                  "Aucun résultat trouvé"
+                ) : (
+                  `${filteredEntities.length} résultat${filteredEntities.length > 1 ? 's' : ''} trouvé${filteredEntities.length > 1 ? 's' : ''}`
+                )}
+                {searchTerm && (
+                  <span> pour <span className="font-semibold text-primary-700">"{searchTerm}"</span></span>
+                )}
+                {selectedCategory !== 'Toutes' && (
+                  <span> dans <span className="font-semibold text-secondary-600">{selectedCategory}</span></span>
+                )}
+              </p>
+              <button
+                onClick={() => {
+                  setSearchTerm('');
+                  setSelectedCategory('Toutes');
+                }}
+                className="mt-2 text-sm text-primary-600 hover:text-primary-700 underline"
+              >
+                Réinitialiser les filtres
+              </button>
+            </div>
+          )}
         </div>
 
-        {/* Grille de toutes les entités */}
-        <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8">
-          {allEntities.map((entity) => (
-            <EntityCard key={entity.id} entity={entity} />
-          ))}
-        </div>
+        {/* Grille des entités filtrées */}
+        {filteredEntities.length > 0 ? (
+          <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8">
+            {filteredEntities.map((entity) => (
+              <EntityCard key={entity.id} entity={entity} />
+            ))}
+          </div>
+        ) : (
+          <div className="text-center py-16">
+            <div className="text-6xl mb-4">🔍</div>
+            <h3 className="text-2xl font-bold text-gray-700 mb-4">Aucune entité trouvée</h3>
+            <p className="text-gray-600 mb-6">
+              Aucune entité ne correspond à vos critères de recherche.
+            </p>
+            <button
+              onClick={() => {
+                setSearchTerm('');
+                setSelectedCategory('Toutes');
+              }}
+              className="bg-primary-600 text-white px-6 py-3 rounded-lg hover:bg-primary-700 transition-colors"
+            >
+              Voir toutes les entités
+            </button>
+          </div>
+        )}
 
         {/* Section CTA */}
         <div className="text-center mt-16 p-8 bg-primary-900 rounded-2xl text-white">
@@ -242,6 +336,7 @@ export default function EntitesPage() {
             <a 
               href="https://t.me/SambaLearnBot"
               target="_blank"
+              rel="noopener noreferrer"
               className="border-2 border-white text-white font-bold px-8 py-3 rounded-lg hover:bg-white hover:text-primary-900 transition-colors"
             >
               🤖 Chatbot Assistant

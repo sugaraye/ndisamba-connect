@@ -1,96 +1,91 @@
-// app/entites/iujs/page.jsx
+// app/entites/polytech/page.jsx
 'use client';
 
 import Link from 'next/link';
 
-export default function IUJSPage() {
+export default function PolytechPage() {
   const entity = {
-    id: 1,
-    name: "Institut Universitaire Joseph Ndi Samba",
-    slogan: "L'excellence académique au service du développement",
-    description: "Établissement d'enseignement supérieur de référence offrant des formations professionnelles de qualité dans les domaines du management, de l'informatique et du génie civil. Notre pédagogie innovante combine théorie et pratique pour former les leaders de demain.",
-    site: "https://universitedisamba.com",
-    image: "/assets/images/iujs-campus.jpg",
-    logo: "/assets/logos/logo-iujs.png",
-    category: "Enseignement Supérieur",
+    id: 2,
+    name: "Ndi Samba Polytech",
+    slogan: "L'excellence technologique au service de l'industrie",
+    description: "École polytechnique d'excellence, sous la tutelle de l'Ecole Nationale Polytechnique de Douala, formant des techniciens supérieurs et ingénieurs dans les domaines industriels, technologiques et du génie civil. Partenariats industriels forts pour une insertion professionnelle garantie.",
+    site: "https://ndisambapolytech.com",
+    image: "/assets/images/polytech-lab.jpg",
+    logo: "/assets/logos/logo-polytech.png",
+    category: "Enseignement supérieur polytechnique",
     locations: [
       {
-        name: "Campus Principal Yaoundé",
-        address: "Mvan-Tropicana, Yaoundé, Cameroun",
-        type: "Siège"
-      },
-      {
-        name: "Campus Douala",
+        name: "Campus Principal Douala",
         address: "Face Chapelle EEC, Beedi-Marché, Douala, Cameroun",
-        type: "Annexe"
+        type: "Siège"
       }
     ],
     phone: "+237 689 18 43 39",
-    email: "contact@universitedisamba.com",
+    email: "contact@universitendisamba.com",
     whatsapp: "+237 689 18 43 39",
     
     // Informations détaillées
-    founded: "2005",
-    director: "Dr. Raymond Samba Ndi",
-    accreditation: "Ministère de l'Enseignement Supérieur - Arrêté N° 045/05/MINESUP",
-    recognition: "Reconnu par l'État Camerounais",
+    founded: "2019",
+    director: "Raymond Samba Ndi",
+    accreditation: "Ministère de l'Enseignement Supérieur - Arrêté N° 078/19/MINESUP",
+    recognition: "École technique reconnue par l'État",
     
     // Programmes académiques
     programs: {
-      "Licences Professionnelles": [
+      "BTS - Brevet de Technicien Supérieur": [
         {
-          name: "Licence en Management des Organisations",
-          duration: "3 ans",
-          specialites: ["Gestion d'Entreprise", "Marketing", "Finance"]
+          name: "BTS en Maintenance Industrielle",
+          duration: "2 ans",
+          specialites: ["Maintenance des systèmes", "Automatisme", "Électromécanique"]
         },
         {
-          name: "Licence en Informatique",
-          duration: "3 ans", 
-          specialites: ["Développement Web", "Réseaux & Télécoms", "Base de Données"]
+          name: "BTS en Informatique et Réseaux",
+          duration: "2 ans", 
+          specialites: ["Développement", "Réseaux informatiques", "Cybersécurité"]
         },
         {
-          name: "Licence en Génie Civil",
-          duration: "3 ans",
-          specialites: ["Bâtiment", "Travaux Publics", "Topographie"]
+          name: "BTS en Génie Civil",
+          duration: "2 ans",
+          specialites: ["BTP", "Topographie", "Dessin technique"]
         },
         {
-          name: "Licence en Commerce International",
-          duration: "3 ans",
-          specialites: ["Logistique", "Douane", "Marketing International"]
+          name: "BTS en Électronique",
+          duration: "2 ans",
+          specialites: ["Électronique analogique", "Électronique numérique", "Télécoms"]
         }
       ],
-      "Masters Professionnels": [
+      "Licences Professionnelles": [
         {
-          name: "Master en Management (MBA)",
-          duration: "2 ans",
-          specialites: ["Stratégie d'Entreprise", "Management des RH", "Contrôle de Gestion"]
+          name: "Licence en Génie Industriel",
+          duration: "3 ans",
+          specialites: ["Production industrielle", "Qualité", "Logistique"]
         },
         {
-          name: "Master en Informatique",
-          duration: "2 ans",
-          specialites: ["Ingénierie des Systèmes", "Cybersécurité", "Intelligence Artificielle"]
+          name: "Licence en Informatique Industrielle",
+          duration: "3 ans",
+          specialites: ["Automatisme", "Robotique", "Informatique embarquée"]
         },
         {
-          name: "Master en Génie Civil",
-          duration: "2 ans",
-          specialites: ["Gestion de Projets", "Structures & Bâtiments", "Routes & Ouvrages d'Art"]
+          name: "Licence en Génie Civil et BTP",
+          duration: "3 ans",
+          specialites: ["Bâtiment", "Travaux publics", "Gestion de chantier"]
         }
       ],
       "Formations Spécialisées": [
         {
-          name: "Formations Continues",
+          name: "Formations Courtes Professionnelles",
           duration: "3-6 mois",
-          specialites: ["Comptabilité", "Marketing Digital", "Gestion de Projets"]
+          specialites: ["Soudage", "Électricité bâtiment", "Plomberie"]
         },
         {
-          name: "Certifications Professionnelles",
-          duration: "1-3 mois", 
-          specialites: ["Bureautique", "Langues", "Soft Skills"]
+          name: "Certifications Techniques", 
+          duration: "1-3 mois",
+          specialites: ["Autocad", "Programmation PLC", "Réseaux"]
         },
         {
-          name: "Formation en Alternance",
-          duration: "Flexible",
-          specialites: ["Contrats de professionnalisation", "Stages rémunérés"]
+          name: "Alternance en Entreprise",
+          duration: "2-3 ans",
+          specialites: ["Contrats d'apprentissage", "Stages industriels"]
         }
       ]
     },
@@ -98,111 +93,111 @@ export default function IUJSPage() {
     // Installations
     facilities: [
       {
-        category: "Infrastructures Académiques",
+        category: "Ateliers Techniques",
         items: [
-          "Salles de cours climatisées et équipées",
-          "Bibliothèque numérique avec 10,000+ ouvrages",
-          "Laboratoires informatiques haut débit",
-          "Salles de TP spécialisées",
-          "Amphithéâtres modernes"
+          "Atelier de maintenance industrielle",
+          "Laboratoire d'électronique avancée",
+          "Atelier de génie civil et topographie",
+          "Salle de dessin technique CAD/CAM",
+          "Laboratoire de robotique"
         ]
       },
       {
         category: "Équipements Technologiques", 
         items: [
-          "Parc informatique dernière génération",
-          "Accès Internet haut débit",
-          "Plateforme e-learning Moodle",
-          "Logiciels professionnels (AutoCAD, SPSS, Suite Adobe)",
-          "Réseau Wi-Fi campus entier"
+          "Machines-outils conventionnelles et CNC",
+          "Équipements de soudage professionnels",
+          "Stations de travail informatiques haut de gamme",
+          "Équipements de mesure et contrôle",
+          "Logiciels professionnels (SolidWorks, AutoCAD, MATLAB)"
         ]
       },
       {
-        category: "Services Étudiants",
+        category: "Services aux Étudiants",
         items: [
-          "Résidences universitaires",
-          "Restauration sur place",
-          "Centre de santé universitaire",
-          "Service d'orientation professionnelle",
-          "Club étudiant et associations"
+          "Centre de ressources techniques",
+          "Service placement en entreprise",
+          "Laboratoires de langues",
+          "Espace projet étudiant",
+          "Résidences techniques"
         ]
       }
     ],
 
     // Partenariats
     partnerships: {
-      "Partenaires Académiques": [
-        "Universités européennes (France, Belgique, Espagne)",
-        "Programmes d'échanges internationaux",
-        "Double diplômations possibles"
-      ],
       "Partenaires Industriels": [
-        "Entreprises locales et multinationales",
-        "Conventions de stages garanties",
-        "Recrutement direct des diplômés"
+        "Entreprises du secteur industriel camerounais",
+        "Sociétés de BTP et génie civil",
+        "Entreprises de télécommunications",
+        "Sociétés d'ingénierie"
+      ],
+      "Partenaires Académiques": [
+        "Universités techniques européennes",
+        "Écoles d'ingénieurs partenaires",
+        "Programmes de mobilité technique"
       ],
       "Partenaires Institutionnels": [
-        "Ministère de l'Enseignement Supérieur",
+        "Ministère de l'Emploi et de la Formation Professionnelle",
         "Chambre de Commerce et d'Industrie",
-        "Associations professionnelles"
+        "Ordre des Ingénieurs du Cameroun"
       ]
     },
 
     // Admission
     admission: {
       "Conditions d'Admission": [
-        "Baccalauréat ou équivalent pour la Licence",
-        "Licence ou équivalent pour le Master",
-        "Dossier académique complet",
-        "Entretien de motivation"
+        "Baccalauréat C, D, E, F ou technique pour le BTS",
+        "BTS ou équivalent pour la Licence",
+        "Test technique et entretien de motivation",
+        "Dossier académique complet"
       ],
       "Procédure d'Inscription": [
-        "Dépôt de dossier en ligne ou sur place",
-        "Étude du dossier par la commission",
-        "Entretien de sélection",
-        "Inscription définitive et paiement"
+        "Dépôt de dossier en ligne",
+        "Test d'aptitude technique",
+        "Entretien avec le directeur technique",
+        "Inscription définitive"
       ],
-      "Documents Requis": [
-        "Copie certifiée du Bac ou diplôme",
-        "Relevés de notes des années antérieures",
-        "Extrait d'acte de naissance",
-        "4 photos d'identité",
-        "Certificat médical",
-        "Lettre de motivation"
+      "Qualités Requises": [
+        "Sens technique et manuel",
+        "Esprit d'analyse et de synthèse",
+        "Capacité à travailler en équipe",
+        "Intérêt pour l'innovation technologique"
       ]
     },
 
     // Frais et Financement
     fees: {
-      "Frais de Scolarité": [
-        "Licence: 450,000 - 600,000 FCFA/an",
-        "Master: 550,000 - 700,000 FCFA/an",
-        "Frais d'inscription: 50,000 FCFA (non remboursables)"
+      "Frais de Formation": [
+        "BTS: 400,000 - 550,000 FCFA/an",
+        "Licence: 500,000 - 650,000 FCFA/an",
+        "Frais d'atelier: 50,000 FCFA/an",
+        "Frais d'inscription: 25,000 FCFA"
       ],
       "Options de Paiement": [
-        "Paiement comptant (5% de réduction)",
-        "Paiement échelonné (3 tranches)",
+        "Paiement comptant (réduction 5%)",
+        "Échelonnement sur 3 tranches",
         "Paiement mensuel possible"
       ],
-      "Bourses et Aides": [
-        "Bourses d'excellence sur dossier",
-        "Aides aux étudiants méritants",
-        "Conventions entreprises"
+      "Aides et Financements": [
+        "Bourses techniques sur dossier",
+        "Conventions entreprises",
+        "Financement par apprentissage"
       ]
     },
 
     // Chiffres clés
     stats: {
-      "Effectifs": "1,200+ étudiants",
-      "Taux de Réussite": "85% en moyenne",
-      "Insertion Professionnelle": "78% dans les 6 mois",
-      "Enseignants": "50+ professeurs et professionnels",
-      "Promotions": "15+ promotions diplômées"
+      "Effectifs": "800+ étudiants techniciens",
+      "Taux d'Insertion": "92% dans les 3 mois",
+      "Partenaires Entreprises": "45+ entreprises",
+      "Enseignants": "35+ ingénieurs et techniciens",
+      "Ateliers": "8 ateliers spécialisés"
     }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
       <div className="max-w-7xl mx-auto px-4 py-8">
         {/* Navigation */}
         <nav className="mb-8">
@@ -212,19 +207,19 @@ export default function IUJSPage() {
         </nav>
 
         {/* En-tête Hero */}
-        <div className="bg-gradient-to-r from-blue-600 to-blue-800 rounded-2xl text-white p-8 md:p-12 mb-8">
+        <div className="bg-gradient-to-r from-gray-700 to-gray-900 rounded-2xl text-white p-8 md:p-12 mb-8">
           <div className="flex flex-col md:flex-row gap-8 items-start">
             <div className="flex-shrink-0">
               <div className="w-20 h-20 bg-white bg-opacity-20 rounded-xl flex items-center justify-center text-2xl">
-                🎓
+                ⚙️
               </div>
             </div>
             <div className="flex-1">
               <h1 className="text-3xl md:text-4xl font-bold mb-4">
                 {entity.name}
               </h1>
-              <p className="text-xl text-blue-100 mb-2">{entity.slogan}</p>
-              <p className="text-blue-100 opacity-90 mb-6">
+              <p className="text-xl text-gray-100 mb-2">{entity.slogan}</p>
+              <p className="text-gray-100 opacity-90 mb-6">
                 {entity.description}
               </p>
               
@@ -233,7 +228,7 @@ export default function IUJSPage() {
                   href={entity.site}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="bg-white text-blue-600 px-6 py-3 rounded-lg font-bold hover:bg-gray-100 transition-colors"
+                  className="bg-white text-gray-700 px-6 py-3 rounded-lg font-bold hover:bg-gray-100 transition-colors"
                 >
                   🌐 Site Officiel
                 </a>
@@ -278,7 +273,7 @@ export default function IUJSPage() {
                   </a>
                 </div>
                 <div>
-                  <p className="font-semibold text-gray-700">Campuses</p>
+                  <p className="font-semibold text-gray-700">Campus</p>
                   {entity.locations.map((location, index) => (
                     <div key={index} className="mt-1">
                       <p className="text-sm font-medium text-gray-600">{location.name}</p>
@@ -296,7 +291,7 @@ export default function IUJSPage() {
                 {Object.entries(entity.stats).map(([key, value]) => (
                   <div key={key} className="border-b border-gray-100 pb-2 last:border-0">
                     <p className="text-sm text-gray-600">{key}</p>
-                    <p className="font-semibold text-blue-700">{value}</p>
+                    <p className="font-semibold text-gray-700">{value}</p>
                   </div>
                 ))}
               </div>
@@ -312,18 +307,18 @@ export default function IUJSPage() {
 
           {/* Contenu Principal */}
           <div className="lg:col-span-3 space-y-8">
-            {/* Programmes Académiques */}
+            {/* Programmes Techniques */}
             <section className="bg-white rounded-2xl shadow-lg p-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">🎓 Programmes Académiques</h2>
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">🎓 Programmes Techniques</h2>
               <div className="space-y-8">
                 {Object.entries(entity.programs).map(([category, programs]) => (
                   <div key={category}>
-                    <h3 className="text-xl font-semibold text-blue-800 mb-4 border-b border-blue-100 pb-2">
+                    <h3 className="text-xl font-semibold text-gray-800 mb-4 border-b border-gray-100 pb-2">
                       {category}
                     </h3>
                     <div className="grid md:grid-cols-2 gap-6">
                       {programs.map((program, index) => (
-                        <div key={index} className="bg-blue-50 rounded-lg p-4">
+                        <div key={index} className="bg-gray-50 rounded-lg p-4 border border-gray-200">
                           <h4 className="font-bold text-gray-900 mb-2">{program.name}</h4>
                           <p className="text-sm text-blue-600 mb-3">Durée: {program.duration}</p>
                           <div className="space-y-1">
@@ -342,9 +337,9 @@ export default function IUJSPage() {
               </div>
             </section>
 
-            {/* Installation & Équipements */}
+            {/* Ateliers & Équipements */}
             <section className="bg-white rounded-2xl shadow-lg p-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">🏫 Campus & Équipements</h2>
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">🏭 Ateliers & Équipements</h2>
               <div className="space-y-6">
                 {entity.facilities.map((facilityCategory, index) => (
                   <div key={index}>
@@ -353,8 +348,8 @@ export default function IUJSPage() {
                     </h3>
                     <div className="grid md:grid-cols-2 gap-3">
                       {facilityCategory.items.map((item, itemIndex) => (
-                        <div key={itemIndex} className="flex items-center p-2 bg-gray-50 rounded-lg">
-                          <span className="text-green-500 mr-3">✓</span>
+                        <div key={itemIndex} className="flex items-center p-2 bg-blue-50 rounded-lg">
+                          <span className="text-blue-500 mr-3">⚙️</span>
                           <span className="text-gray-700 text-sm">{item}</span>
                         </div>
                       ))}
@@ -368,7 +363,7 @@ export default function IUJSPage() {
             <div className="grid md:grid-cols-2 gap-8">
               {/* Admission */}
               <section className="bg-white rounded-2xl shadow-lg p-6">
-                <h2 className="text-xl font-bold text-gray-900 mb-4">📝 Admission</h2>
+                <h2 className="text-xl font-bold text-gray-900 mb-4">📝 Admission Technique</h2>
                 <div className="space-y-4">
                   {Object.entries(entity.admission).map(([section, items]) => (
                     <div key={section}>
@@ -407,9 +402,9 @@ export default function IUJSPage() {
               </section>
             </div>
 
-            {/* Partenariats */}
+            {/* Partenariats Industriels */}
             <section className="bg-white rounded-2xl shadow-lg p-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">🤝 Partenariats Stratégiques</h2>
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">🏭 Partenariats Industriels</h2>
               <div className="grid md:grid-cols-3 gap-6">
                 {Object.entries(entity.partnerships).map(([type, partners]) => (
                   <div key={type} className="text-center">
@@ -429,17 +424,17 @@ export default function IUJSPage() {
         </div>
 
         {/* CTA Final */}
-        <div className="mt-12 bg-gradient-to-r from-orange-500 to-orange-600 rounded-2xl p-8 text-white text-center">
-          <h2 className="text-2xl font-bold mb-4">Prêt à rejoindre l'excellence ?</h2>
-          <p className="text-orange-100 mb-6 max-w-2xl mx-auto">
-            Rejoignez les milliers d'étudiants qui ont choisi l'IUJS pour leur réussite professionnelle.
+        <div className="mt-12 bg-gradient-to-r from-blue-500 to-blue-700 rounded-2xl p-8 text-white text-center">
+          <h2 className="text-2xl font-bold mb-4">Prêt à devenir un expert technique ?</h2>
+          <p className="text-blue-100 mb-6 max-w-2xl mx-auto">
+            Rejoignez la nouvelle génération de techniciens et ingénieurs formés par Ndi Samba Polytech.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a 
               href="https://ih3mdhp6.forms.app/formulaire-dinscription"
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-white text-orange-600 px-8 py-3 rounded-lg font-bold hover:bg-gray-100 transition-colors"
+              className="bg-white text-blue-600 px-8 py-3 rounded-lg font-bold hover:bg-gray-100 transition-colors"
             >
               📝 Postuler Maintenant
             </a>
@@ -447,9 +442,9 @@ export default function IUJSPage() {
               href={`https://wa.me/${entity.whatsapp}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="border-2 border-white text-white px-8 py-3 rounded-lg font-bold hover:bg-white hover:text-orange-600 transition-colors"
+              className="border-2 border-white text-white px-8 py-3 rounded-lg font-bold hover:bg-white hover:text-blue-600 transition-colors"
             >
-              💬 Nous Contacter
+              💬 Visite Technique
             </a>
           </div>
         </div>

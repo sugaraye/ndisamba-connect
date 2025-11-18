@@ -4,5 +4,5 @@ git add .
 	git push
 	
 	git add .
-git commit -m "fix init bot18"
+git commit -m "fix init bot19"
 git push
