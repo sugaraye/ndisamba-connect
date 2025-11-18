@@ -6,21 +6,21 @@ import Image from "next/image";
 
 export default function MainNavbar() {
   const [open, setOpen] = useState(false);
-
   const toggle = () => setOpen(!open);
 
   return (
     <header className="bg-primary-900 text-white shadow-lg sticky top-0 z-50 border-b-4 border-secondary-600">
-      <div className="max-w-7xl mx-auto flex justify-between items-center px-4 py-4">
+      <div className="max-w-7xl mx-auto flex justify-between items-center px-4 py-3">
         {/* LOGO + NOM */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3">
           <div className="bg-white p-2 rounded-lg shadow-md">
             <Image
-              src="/assets/logo.png"
+              src="/assets/logos/logo-gnsf.png"
               alt="Groupe Ndi Samba Formation"
               width={60}
               height={60}
               className="w-auto h-12"
+              priority
             />
           </div>
           <div>
