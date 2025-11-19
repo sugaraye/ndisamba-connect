@@ -210,7 +210,7 @@ export default function GaragePage() {
         "Véhicule de courtoisie",
         "Navette client",
         "Suivi SMS des réparations",
-        Photos avant/après
+        "Photos avant/après"
       ]
     },
 

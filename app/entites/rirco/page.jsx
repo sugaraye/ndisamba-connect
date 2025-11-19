@@ -225,7 +225,7 @@ export default function RircoPage() {
     },
 
     // Urgences & Rendez-vous
-    urgence: {
+    servicesUrgence: {
       "Urgences Médicales": [
         "Service d'urgence 24h/24",
         "Équipe médicale permanente",
@@ -386,7 +386,7 @@ export default function RircoPage() {
             <section className="bg-white rounded-2xl shadow-lg p-8">
               <h2 className="text-2xl font-bold text-gray-900 mb-6">🏥 Services Médicaux</h2>
               <div className="space-y-8">
-                {Object.entries(entity.services).map(([categorie, services]) => (
+                {Object.entries(entity.servicesUrgence).map(([categorie, services]) => (
                   <div key={categorie}>
                     <h3 className="text-xl font-semibold text-green-800 mb-4 border-b border-green-100 pb-2">
                       {categorie}
@@ -540,23 +540,68 @@ export default function RircoPage() {
             </section>
 
             {/* Urgences & Rendez-vous */}
-            <section className="bg-white rounded-2xl shadow-lg p-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">📅 Accès aux Soins</h2>
-              <div className="grid md:grid-cols-3 gap-6">
-                {Object.entries(entity.urgence).map(([service, details]) => (
-                  <div key={service} className="text-center bg-blue-50 rounded-lg p-4">
-                    <h3 className="font-semibold text-blue-800 mb-4">{service}</h3>
+              <section className="bg-white rounded-2xl shadow-lg p-8">
+                <h2 className="text-2xl font-bold text-gray-900 mb-6">📅 Accès aux Soins</h2>
+                <div className="grid md:grid-cols-3 gap-6">
+                  {/* Section Urgences Médicales */}
+                  <div className="text-center bg-red-50 rounded-lg p-4">
+                    <h3 className="font-semibold text-red-800 mb-4">🚨 Urgences Médicales</h3>
                     <div className="space-y-2">
-                      {details.map((detail, index) => (
-                        <div key={index} className="bg-white rounded p-2">
-                          <p className="text-sm text-gray-700">{detail}</p>
-                        </div>
-                      ))}
+                      <div className="bg-white rounded p-2">
+                        <p className="text-sm text-gray-700">Service d'urgence 24h/24</p>
+                      </div>
+                      <div className="bg-white rounded p-2">
+                        <p className="text-sm text-gray-700">Équipe médicale permanente</p>
+                      </div>
+                      <div className="bg-white rounded p-2">
+                        <p className="text-sm text-gray-700">Plateau technique complet</p>
+                      </div>
+                      <div className="bg-white rounded p-2">
+                        <p className="text-sm text-gray-700">Ambulance sur appel</p>
+                      </div>
                     </div>
                   </div>
-                ))}
-              </div>
-            </section>
+
+                  {/* Section Prise de Rendez-vous */}
+                  <div className="text-center bg-blue-50 rounded-lg p-4">
+                    <h3 className="font-semibold text-blue-800 mb-4">📞 Prise de Rendez-vous</h3>
+                    <div className="space-y-2">
+                      <div className="bg-white rounded p-2">
+                        <p className="text-sm text-gray-700">Par téléphone: {entity.phone}</p>
+                      </div>
+                      <div className="bg-white rounded p-2">
+                        <p className="text-sm text-gray-700">WhatsApp: réservation rapide</p>
+                      </div>
+                      <div className="bg-white rounded p-2">
+                        <p className="text-sm text-gray-700">Sur place: accueil permanent</p>
+                      </div>
+                      <div className="bg-white rounded p-2">
+                        <p className="text-sm text-gray-700">En ligne: formulaire web</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Section Conseils Médicaux */}
+                  <div className="text-center bg-green-50 rounded-lg p-4">
+                    <h3 className="font-semibold text-green-800 mb-4">💬 Conseils Médicaux</h3>
+                    <div className="space-y-2">
+                      <div className="bg-white rounded p-2">
+                        <p className="text-sm text-gray-700">Téléconsultation possible</p>
+                      </div>
+                      <div className="bg-white rounded p-2">
+                        <p className="text-sm text-gray-700">Conseils par WhatsApp</p>
+                      </div>
+                      <div className="bg-white rounded p-2">
+                        <p className="text-sm text-gray-700">Suivi des traitements</p>
+                      </div>
+                      <div className="bg-white rounded p-2">
+                        <p className="text-sm text-gray-700">Éducation thérapeutique</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
           </div>
         </div>
 

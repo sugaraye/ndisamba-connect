@@ -2,9 +2,6 @@
   "name": "ndisamba-connect",
   "version": "0.1.0",
   "private": true,
-  "engines": {
-    "node": ">=18.0.0"
-  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -14,7 +11,8 @@
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "next": "14.2.3"
+    "next": "14.2.3",
+    "grammy": "^1.22.0"
   },
   "devDependencies": {
     "eslint": "^8.57.0",
@@ -22,6 +20,5 @@
     "postcss": "^8.4.41",
     "tailwindcss": "^3.4.1",
     "autoprefixer": "^10.4.20"
-  },
-  "packageManager": "yarn@1.22.19+sha1.3b7d7a5e7d8c5f3c3a3a3a3a3a3a3a3a3a3a3a3a"
+  }
 }
