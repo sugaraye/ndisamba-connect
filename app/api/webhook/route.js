@@ -1,15 +1,23 @@
-// app/api/webhook/route.js - Version complète intégrée
 import { Bot } from "grammy";
-
-export const runtime = "edge";
 
 const BOT_TOKEN = process.env.BOT_TOKEN;
 
-if (!BOT_TOKEN) {
-  console.warn("⚠️ BOT_TOKEN non configuré");
+// Validation plus stricte
+if (!BOT_TOKEN || BOT_TOKEN === "dummy-token") {
+  console.error("❌ BOT_TOKEN non configuré dans les variables d'environnement");
+  // Ne pas créer le bot si le token est invalide
+  throw new Error("BOT_TOKEN manquant - Configurez-le dans Vercel");
 }
 
-const bot = new Bot(BOT_TOKEN || "dummy-token");
+const bot = new Bot(BOT_TOKEN, {
+  // Timeout plus long pour les requêtes Telegram
+  client: {
+    timeout: 10000, // 10 secondes
+    baseFetchConfig: {
+      // Options supplémentaires pour fetch
+    }
+  }
+});
 
 // ==================== COMMANDES PRINCIPALES ====================
 
@@ -330,39 +338,69 @@ bot.on("message:text", async (ctx) => {
 
 // ==================== WEBHOOK HANDLER ====================
 
-export async function POST(req) {
+async function processUpdateAsync(update) {
   try {
-    if (!BOT_TOKEN) {
-      return new Response(
-        JSON.stringify({ error: "Bot token not configured" }), 
-        { status: 500, headers: { 'Content-Type': 'application/json' } }
-      );
-    }
-
-    const update = await req.json();
-    console.log("📱 Update Telegram:", update?.message?.text);
-
-    await bot.handleUpdate(update);
+    console.log("🤖 Début traitement update...");
     
-    return new Response("OK");
+    // Vérifier que le bot est initialisé
+    if (!bot || !BOT_TOKEN || BOT_TOKEN === "dummy-token") {
+      console.error("❌ Bot non initialisé - BOT_TOKEN manquant");
+      return;
+    }
+    
+    await bot.handleUpdate(update);
+    console.log("✅ Update traité avec succès");
+    
+  } catch (error) {
+    console.error("❌ Erreur traitement update:", error);
+    console.error("Détails:", error.message);
+  }
+}
+
+export async function POST(req) {
+  console.log("📍 Webhook appelé à:", new Date().toISOString());
+  
+  // Vérifier rapidement le token
+  if (!BOT_TOKEN || BOT_TOKEN === "dummy-token") {
+    console.error("💥 BOT_TOKEN non configuré");
+    return new Response("Server Error", { status: 500 });
+  }
+  
+  try {
+    const update = await req.json();
+    console.log("📱 Message reçu:", update?.message?.text || "Pas de texte");
+    console.log("👤 De:", update?.message?.from?.first_name || "Inconnu");
+    
+    // 🔥 RÉPONDRE IMMÉDIATEMENT à Telegram (dans les 3 secondes)
+    const response = new Response("OK");
+    
+    // 🔥 TRAITEMENT ASYNCHRONE (après la réponse)
+    // Utiliser setTimeout pour être sûr que la réponse parte d'abord
+    setTimeout(async () => {
+      try {
+        await processUpdateAsync(update);
+      } catch (asyncError) {
+        console.error("💥 Erreur dans le traitement async:", asyncError);
+      }
+    }, 0);
+    
+    return response;
 
   } catch (err) {
-    console.error("❌ Erreur webhook:", err);
-    return new Response(
-      JSON.stringify({ error: "Webhook processing failed" }), 
-      { status: 500, headers: { 'Content-Type': 'application/json' } }
-    );
+    console.error("💥 ERREUR CRITIQUE dans POST:", err);
+    return new Response("Error", { status: 500 });
   }
 }
 
 export async function GET() {
   return new Response(
     JSON.stringify({ 
-      status: "Telegram bot active",
-      service: "Groupe Ndi Samba Formation Bot",
-      entities: "12 entités intégrées",
+      status: "Bot en ligne - Groupe Ndi Samba Formation",
       timestamp: new Date().toISOString()
     }), 
-    { headers: { 'Content-Type': 'application/json' } }
+    { 
+      status: 200,
+      headers: { 'Content-Type': 'application/json' } 
+    }
   );
 }
