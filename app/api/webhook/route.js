@@ -2,6 +2,23 @@ import { Bot } from "grammy";
 
 const BOT_TOKEN = process.env.BOT_TOKEN;
 
+if (!BOT_TOKEN) {
+  console.error("❌ BOT_TOKEN non configuré");
+  throw new Error("BOT_TOKEN manquant");
+}
+
+const bot = new Bot(BOT_TOKEN, {
+  botInfo: {
+    id: 5107090126, // Remplacez par l'ID réel de votre bot si connu
+    is_bot: true,
+    first_name: "SambaLearnBot",
+    username: "SambaLearnBot",
+    can_join_groups: true,
+    can_read_all_group_messages: false,
+    supports_inline_queries: false
+  }
+});
+
 // Validation plus stricte
 if (!BOT_TOKEN || BOT_TOKEN === "dummy-token") {
   console.error("❌ BOT_TOKEN non configuré dans les variables d'environnement");
@@ -342,10 +359,10 @@ async function processUpdateAsync(update) {
   try {
     console.log("🤖 Début traitement update...");
     
-    // Vérifier que le bot est initialisé
-    if (!bot || !BOT_TOKEN || BOT_TOKEN === "dummy-token") {
-      console.error("❌ Bot non initialisé - BOT_TOKEN manquant");
-      return;
+    // Initialisation garantie
+    if (!bot.botInfo) {
+      console.log("🔄 Initialisation du bot...");
+      await bot.init();
     }
     
     await bot.handleUpdate(update);
