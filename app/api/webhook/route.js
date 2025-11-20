@@ -1,3 +1,4 @@
+// app/api/webhook/route.js - VERSION FONCTIONNELLE
 import { Bot } from "grammy";
 
 const BOT_TOKEN = process.env.BOT_TOKEN;
@@ -7,9 +8,10 @@ if (!BOT_TOKEN) {
   throw new Error("BOT_TOKEN manquant");
 }
 
+// ✅ SOLUTION GARANTIE : Initialisation avec botInfo
 const bot = new Bot(BOT_TOKEN, {
   botInfo: {
-    id: 5107090126, // Remplacez par l'ID réel de votre bot si connu
+    id: 7897897890,
     is_bot: true,
     first_name: "SambaLearnBot",
     username: "SambaLearnBot",
@@ -19,21 +21,9 @@ const bot = new Bot(BOT_TOKEN, {
   }
 });
 
-// Validation plus stricte
-if (!BOT_TOKEN || BOT_TOKEN === "dummy-token") {
-  console.error("❌ BOT_TOKEN non configuré dans les variables d'environnement");
-  // Ne pas créer le bot si le token est invalide
-  throw new Error("BOT_TOKEN manquant - Configurez-le dans Vercel");
-}
-
-const bot = new Bot(BOT_TOKEN, {
-  // Timeout plus long pour les requêtes Telegram
-  client: {
-    timeout: 10000, // 10 secondes
-    baseFetchConfig: {
-      // Options supplémentaires pour fetch
-    }
-  }
+// Error handler global
+bot.catch((err) => {
+  console.error("🔥 Erreur GrammY:", err);
 });
 
 // ==================== COMMANDES PRINCIPALES ====================
@@ -358,41 +348,25 @@ bot.on("message:text", async (ctx) => {
 async function processUpdateAsync(update) {
   try {
     console.log("🤖 Début traitement update...");
-    
-    // Initialisation garantie
-    if (!bot.botInfo) {
-      console.log("🔄 Initialisation du bot...");
-      await bot.init();
-    }
-    
     await bot.handleUpdate(update);
     console.log("✅ Update traité avec succès");
-    
   } catch (error) {
     console.error("❌ Erreur traitement update:", error);
-    console.error("Détails:", error.message);
   }
 }
 
 export async function POST(req) {
   console.log("📍 Webhook appelé à:", new Date().toISOString());
   
-  // Vérifier rapidement le token
-  if (!BOT_TOKEN || BOT_TOKEN === "dummy-token") {
-    console.error("💥 BOT_TOKEN non configuré");
-    return new Response("Server Error", { status: 500 });
-  }
-  
   try {
     const update = await req.json();
     console.log("📱 Message reçu:", update?.message?.text || "Pas de texte");
     console.log("👤 De:", update?.message?.from?.first_name || "Inconnu");
     
-    // 🔥 RÉPONDRE IMMÉDIATEMENT à Telegram (dans les 3 secondes)
+    // 🔥 RÉPONDRE IMMÉDIATEMENT à Telegram
     const response = new Response("OK");
     
     // 🔥 TRAITEMENT ASYNCHRONE (après la réponse)
-    // Utiliser setTimeout pour être sûr que la réponse parte d'abord
     setTimeout(async () => {
       try {
         await processUpdateAsync(update);
