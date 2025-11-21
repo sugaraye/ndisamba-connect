@@ -12,7 +12,6 @@ export default function PersonImage({ src, alt, size = "medium", className = "" 
     large: "w-40 h-40"
   };
 
-  
   const fallbackIcons = {
     small: "text-2xl",
     medium: "text-4xl", 
