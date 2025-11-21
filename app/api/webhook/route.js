@@ -174,13 +174,7 @@ bot.command("frais", (ctx) => {
 
 // ==================== WEBHOOK HANDLER ====================
 
-async function initializeBot() {
-  if (!bot) {
-    const { bot: importedBot } = await import("../../../lib/bot.js");
-    bot = importedBot;
-  }
-  return bot;
-}
+
 
 export async function POST(request) {
   try {
