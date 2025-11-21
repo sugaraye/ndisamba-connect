@@ -2,6 +2,8 @@
 import { NextResponse } from "next/server";
 import { bot } from "../../lib/bot.js";
 
+let bot = null;
+
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 
 // ✅ UNE SEULE DÉCLARATION openai
@@ -173,15 +175,24 @@ bot.command("frais", (ctx) => {
 
 // ==================== WEBHOOK HANDLER ====================
 
+async function initializeBot() {
+  if (!bot) {
+    const { bot: importedBot } = await import("../../../lib/bot.js");
+    bot = importedBot;
+  }
+  return bot;
+}
+
 export async function POST(request) {
   try {
     const body = await request.json();
     console.log("📍 Webhook appelé - Update ID:", body.update_id);
     
-    // 🔥 IMPORTANT: Ne pas await pour répondre rapidement à Telegram
-    bot.handleUpdate(body).catch(console.error);
+    const botInstance = await initializeBot();
     
-    // Répondre immédiatement à Telegram
+    // Traiter l'update sans attendre
+    botInstance.handleUpdate(body).catch(console.error);
+    
     return NextResponse.json({ status: "ok" });
     
   } catch (error) {
