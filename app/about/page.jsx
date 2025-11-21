@@ -1,4 +1,6 @@
 import Link from 'next/link';
+import Image from 'next/image';
+
 export default function About() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
@@ -24,6 +26,30 @@ export default function About() {
                 a débuté comme une vision ambitieuse : créer un écosystème éducatif complet 
                 capable de répondre aux défis du développement en Afrique.
               </p>
+              
+              {/* Photo Joseph Ndi Samba */}
+              <div className="flex items-center gap-4 bg-blue-50 p-4 rounded-lg my-6">
+                <div className="w-20 h-20 relative">
+                  <Image
+                    src="/images/joseph-ndi-samba.jpg"
+                    alt="Joseph Ndi Samba - Fondateur"
+                    fill
+                    className="rounded-full object-cover"
+                    onError={(e) => {
+                      e.target.style.display = 'none';
+                      e.target.nextSibling.style.display = 'flex';
+                    }}
+                  />
+                  <div className="hidden w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-700 rounded-full flex items-center justify-center text-white text-2xl">
+                    👑
+                  </div>
+                </div>
+                <div>
+                  <h4 className="font-bold text-blue-900">Joseph Ndi Samba</h4>
+                  <p className="text-sm text-gray-600">Fondateur Visionnaire (1968-2016)</p>
+                </div>
+              </div>
+
               <p>
                 Depuis le décès de notre fondateur en 2016, le groupe est dirigé avec succès 
                 par <strong>Monsieur Raymond Samba Ndi</strong>, qui a su poursuivre la vision 
@@ -45,7 +71,7 @@ export default function About() {
             <div className="space-y-4">
               <div className="flex justify-between items-center border-b border-blue-200 pb-2">
                 <span>Années d'expérience</span>
-                <span className="font-bold text-blue-800">50+</span>
+                <span className="font-bold text-blue-800">57+</span>
               </div>
               <div className="flex justify-between items-center border-b border-blue-200 pb-2">
                 <span>Entités spécialisées</span>
@@ -74,8 +100,20 @@ export default function About() {
             {/* Raymond Samba Ndi */}
             <div className="bg-white rounded-2xl p-8 border border-blue-200">
               <div className="flex flex-col md:flex-row gap-6 items-center">
-                <div className="w-32 h-32 bg-gradient-to-br from-blue-500 to-blue-700 rounded-full flex items-center justify-center text-white text-4xl">
-                  👨‍💼
+                <div className="w-32 h-32 relative">
+                  <Image
+                    src="/images/raymond-samba-ndi.jpg"
+                    alt="Raymond Samba Ndi - PDG"
+                    fill
+                    className="rounded-full object-cover"
+                    onError={(e) => {
+                      e.target.style.display = 'none';
+                      e.target.nextSibling.style.display = 'flex';
+                    }}
+                  />
+                  <div className="hidden w-32 h-32 bg-gradient-to-br from-blue-500 to-blue-700 rounded-full flex items-center justify-center text-white text-4xl">
+                    👨‍💼
+                  </div>
                 </div>
                 <div>
                   <h3 className="text-2xl font-bold text-blue-900 mb-2">Raymond Samba Ndi</h3>
@@ -100,14 +138,26 @@ export default function About() {
             {/* Dr. Marlyse Peyou Ndi */}
             <div className="bg-white rounded-2xl p-8 border border-blue-200">
               <div className="flex flex-col md:flex-row gap-6 items-center">
-                <div className="w-32 h-32 bg-gradient-to-br from-green-500 to-green-700 rounded-full flex items-center justify-center text-white text-4xl">
-                  👩‍⚕️
+                <div className="w-32 h-32 relative">
+                  <Image
+                    src="/images/marlyse-peyou-ndi.jpg"
+                    alt="Dr. Marlyse Peyou Ndi - Directrice RIRCO"
+                    fill
+                    className="rounded-full object-cover"
+                    onError={(e) => {
+                      e.target.style.display = 'none';
+                      e.target.nextSibling.style.display = 'flex';
+                    }}
+                  />
+                  <div className="hidden w-32 h-32 bg-gradient-to-br from-green-500 to-green-700 rounded-full flex items-center justify-center text-white text-4xl">
+                    👩‍⚕️
+                  </div>
                 </div>
                 <div>
                   <h3 className="text-2xl font-bold text-blue-900 mb-2">Dr. Marlyse Peyou Ndi</h3>
                   <p className="text-orange-600 font-semibold mb-3">Directrice du Centre Médical RIRCO</p>
                   <p className="text-gray-700 mb-4">
-                    Chercheuse et inventrice visionnaire, elle dirige le centre médical 
+                    Chercheuse et inventrice visionnaire, elle dirige le centre médical et laboratoire de recherche scientifique 
                     avec une approche innovante de la médecine naturelle.
                   </p>
                   <div className="bg-green-50 rounded-lg p-4">
@@ -223,7 +273,7 @@ export default function About() {
               <div className="text-4xl mb-4">🏆</div>
               <h3 className="font-bold text-blue-900 mb-2">Prix d'Excellence</h3>
               <p className="text-gray-600 text-sm">
-                Lauréat du Prix National d'Excellence Éducative 2022
+                Lauréat du Prix National d'Excellence Éducative 2022 reçu par Monsieur Raymond Samba Ndi
               </p>
             </div>
             <div className="bg-white border border-blue-200 rounded-xl p-6 text-center">
@@ -244,7 +294,7 @@ export default function About() {
         </div>
 
         {/* CTA Section */}
-           <div className="text-center bg-blue-50 rounded-2xl p-12">
+        <div className="text-center bg-blue-50 rounded-2xl p-12">
           <h2 className="text-3xl font-bold text-blue-900 mb-4">
             Rejoignez notre aventure éducative
           </h2>

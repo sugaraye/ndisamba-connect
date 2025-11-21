@@ -1,11 +1,24 @@
-// app/api/webhook/route.js - VERSION FONCTIONNELLE
+// app/api/webhook/route.js - VERSION AVEC OPENAI
 import { Bot } from "grammy";
+import { OpenAI } from "openai";
 
 const BOT_TOKEN = process.env.BOT_TOKEN;
+const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 
 if (!BOT_TOKEN) {
   console.error("❌ BOT_TOKEN non configuré");
   throw new Error("BOT_TOKEN manquant");
+}
+
+// Configuration OpenAI (si la clé est présente)
+let openai = null;
+if (OPENAI_API_KEY) {
+  openai = new OpenAI({
+    apiKey: OPENAI_API_KEY,
+  });
+  console.log("✅ OpenAI configuré");
+} else {
+  console.log("⚠️ OpenAI non configuré - Ajoutez OPENAI_API_KEY");
 }
 
 // ✅ SOLUTION GARANTIE : Initialisation avec botInfo
@@ -26,6 +39,55 @@ bot.catch((err) => {
   console.error("🔥 Erreur GrammY:", err);
 });
 
+// ==================== FONCTION OPENAI ====================
+
+async function getAIResponse(question) {
+  if (!openai) {
+    return "🤖 *Assistant IA*\n\nL'intelligence artificielle n'est pas configurée pour le moment.\n\n📞 Contactez-nous directement : +237 689 18 43 39\n📧 infos@groupendisambaformation.com";
+  }
+
+  try {
+    const completion = await openai.chat.completions.create({
+      model: "gpt-3.5-turbo",
+      messages: [
+        { 
+          role: "system", 
+          content: `Tu es l'assistant expert du Groupe Ndi Samba Formation. 
+
+INFORMATIONS SUR LE GROUPE :
+• Enseignement supérieur (IUJS) - Licences, Masters, MBA
+• Formation polytechnique (Polytech) - BTS, Licences pro
+• Centre médical RIRCO - Médecine, urgences 24h/24
+• Campus international - Espagne, échanges
+• E-learning - Formations en ligne
+• Services - Logistique, conseil, juridique
+
+TUI DOIS :
+• Répondre en français de manière professionnelle
+• Être concis et utile (max 400 mots)
+• Proposer des contacts si besoin
+• Utiliser le format Markdown pour la lisibilité
+• Rester dans le contexte éducation/santé/services
+
+Si tu ne sais pas, oriente vers les contacts officiels.`
+        },
+        { 
+          role: "user", 
+          content: question 
+        }
+      ],
+      max_tokens: 500,
+      temperature: 0.7,
+    });
+
+    return completion.choices[0].message.content;
+    
+  } catch (error) {
+    console.error("❌ Erreur OpenAI:", error);
+    return `🤖 *Assistant IA*\n\nDésolé, je rencontre une difficulté technique.\n\n📞 Contactez-nous directement :\n• Admissions: +237 689 18 43 39\n• Urgences médicales: +237 696 16 49 32\n• Email: infos@groupendisambaformation.com`;
+  }
+}
+
 // ==================== COMMANDES PRINCIPALES ====================
 
 bot.command("start", (ctx) => {
@@ -36,7 +98,7 @@ bot.command("start", (ctx) => {
 
 🏫 *ENSEIGNEMENT*
 • Enseignement Supérieur (IUJS)
-• Formation Technique (Polytech)  
+• Formation polytechnique (Polytech)  
 • Enseignement Secondaire
 • E-learning (Ndi Samba Online)
 
@@ -56,14 +118,16 @@ bot.command("start", (ctx) => {
 • Services juridiques
 • Services automobiles
 
-Tapez une commande ou utilisez le menu pour explorer nos services !`,
+🤖 *ASSISTANT IA*
+Tapez /ask suivi de votre question pour une assistance intelligente !`,
     { 
       parse_mode: "Markdown",
       reply_markup: {
         keyboard: [
           [{ text: "🎓 Enseignement" }, { text: "🏥 Santé RIRCO" }],
           [{ text: "🌍 International" }, { text: "💼 Services" }],
-          [{ text: "📞 Contact" }, { text: "🆘 Urgence Médicale" }]
+          [{ text: "🤖 Question IA" }, { text: "📞 Contact" }],
+          [{ text: "🆘 Urgence Médicale" }]
         ],
         resize_keyboard: true,
         one_time_keyboard: false
@@ -71,6 +135,43 @@ Tapez une commande ou utilisez le menu pour explorer nos services !`,
     }
   );
 });
+
+// ==================== COMMANDE IA ====================
+
+bot.command("ask", async (ctx) => {
+  const question = ctx.message.text.replace("/ask", "").trim();
+  
+  if (!question) {
+    return ctx.reply(
+      `🤖 *Assistant IA*\n\nPosez-moi une question sur :\n• Les programmes de formation\n• Les admissions\n• Les services médicaux\n• Les frais de scolarité\n• Les inscriptions\n• Tout autre sujet\n\n*Exemple :* /ask Quels sont les délais d'inscription pour la rentrée ?`,
+      { parse_mode: "Markdown" }
+    );
+  }
+
+  // Message "typing"
+  await ctx.api.sendChatAction(ctx.chat.id, "typing");
+  
+  const thinkingMsg = await ctx.reply("🤔 *Je réfléchis...*", { parse_mode: "Markdown" });
+
+  try {
+    const response = await getAIResponse(question);
+    
+    // Supprimer le message "Je réfléchis"
+    await ctx.api.deleteMessage(ctx.chat.id, thinkingMsg.message_id);
+    
+    // Envoyer la réponse
+    await ctx.reply(response, { parse_mode: "Markdown" });
+    
+  } catch (error) {
+    console.error("Erreur commande /ask:", error);
+    await ctx.reply(
+      "❌ Désolé, une erreur s'est produite. Contactez-nous directement au +237 689 18 43 39",
+      { parse_mode: "Markdown" }
+    );
+  }
+});
+
+// ==================== COMMANDES EXISTANTES ====================
 
 bot.command("about", (ctx) => {
   ctx.reply(
@@ -124,8 +225,6 @@ bot.command("contact", (ctx) => {
     { parse_mode: "Markdown" }
   );
 });
-
-// ==================== SECTION ENSEIGNEMENT ====================
 
 bot.command("filieres", (ctx) => {
   ctx.reply(
@@ -198,20 +297,23 @@ bot.command("frais", (ctx) => {
     `*💵 Frais de Scolarité 2024*
 
 *ENSEIGNEMENT SUPÉRIEUR*
-• Licence: 450,000 - 600,000 FCFA/an
+• BTS: 250,000 - 300,000 FCFA/an
+• Licence: 450,000 - 500,000 FCFA/an
 • Master: 550,000 - 700,000 FCFA/an
 • Frais d'inscription: 50,000 FCFA
 
-*ENSEIGNEMENT TECHNIQUE*
-• BTS: 400,000 - 550,000 FCFA/an
-• Licence Pro: 500,000 - 650,000 FCFA/an
+*ENSEIGNEMENT POLYTECHNIQUE*
+• BTS: 250,000 - 300,000 FCFA/an
+• Licence: 450,000 - 500,000 FCFA/an
+• Master: 600,000 - 800,000 FCFA/an
+• Frais d'inscription: 50,000 FCFA
 
 *E-LEARNING*
 • Certifications: 75,000 - 200,000 FCFA
 • Formations en ligne: tarifs variables
 
 *Options de paiement :*
-• Paiement comptant (5% réduction)
+• Paiement comptant (15% réduction)
 • Échelonnement sur 3 tranches
 • Paiement mensuel possible
 • Mobile Money, virement, MAVIANCE QR
@@ -249,8 +351,6 @@ https://ih3mdhp6.forms.app/formulaire-dinscription
   );
 });
 
-// ==================== SECTION SANTÉ RIRCO ====================
-
 bot.command("rirco", (ctx) => {
   ctx.reply(
     `*🏥 Centre Médical RIRCO*
@@ -264,7 +364,7 @@ bot.command("rirco", (ctx) => {
 
 *Innovations :*
 • Ngul Be Tara (produit phare)
-• Arthro-Soulage
+• Thé Mayi
 • Digest-Comfort  
 • Sleep-Nature
 
@@ -278,8 +378,6 @@ Tapez /sante pour plus d'infos`,
     { parse_mode: "Markdown" }
   );
 });
-
-// ==================== COMMANDES RAPIDES ====================
 
 bot.command("help", (ctx) => {
   ctx.reply(
@@ -300,6 +398,9 @@ bot.command("help", (ctx) => {
 /certifications - Certifications internationales
 /elearning - Plateforme en ligne
 
+*🤖 ASSISTANT IA*
+/ask - Posez une question à l'IA
+
 *💼 SERVICES*
 /contact - Coordonnées complètes
 /support - Assistance technique
@@ -316,7 +417,7 @@ bot.on("message:text", async (ctx) => {
   
   if (text.includes("urgence") || text.includes("urgent") || text === "🆘 urgence médicale") {
     await ctx.reply(
-      `🚨 *URGENCE MÉDICALE - CENTRE RIRCO*\n\nAppelez immédiatement :\n*${process.env.URGENCY_PHONE || "+237 696 16 49 32"}*\n\n• Service 24h/24\n• Équipe médicale permanente\n• Plateau technique complet\n• Ambulance sur appel`,
+      `🚨 *URGENCE MÉDICALE - CENTRE RIRCO*\n\nAppelez immédiatement :\n*+237 696 16 49 32*\n\n• Service 24h/24\n• Équipe médicale permanente\n• Plateau technique complet\n• Ambulance sur appel`,
       { parse_mode: "Markdown" }
     );
   }
@@ -332,12 +433,15 @@ bot.on("message:text", async (ctx) => {
   else if (text === "💼 services") {
     await ctx.reply("Tapez /contact pour tous nos services");
   }
+  else if (text === "🤖 question ia") {
+    await ctx.reply("Tapez /ask suivi de votre question pour une assistance intelligente !\n\nExemple : /ask Quels sont les horaires d'ouverture du centre médical ?");
+  }
   else if (text === "📞 contact") {
     await ctx.reply("Tapez /contact pour nos coordonnées complètes");
   }
   else {
     await ctx.reply(
-      `Merci pour votre message ! 🤖\n\nJe suis l'assistant du Groupe Ndi Samba Formation.\n\nTapez /help pour voir toutes les commandes disponibles ou utilisez le clavier pour naviguer.`,
+      `Merci pour votre message ! 🤖\n\nJe suis l'assistant du Groupe Ndi Samba Formation.\n\nTapez /help pour voir toutes les commandes disponibles ou /ask pour une question à l'IA.`,
       { parse_mode: "Markdown" }
     );
   }
@@ -387,6 +491,7 @@ export async function GET() {
   return new Response(
     JSON.stringify({ 
       status: "Bot en ligne - Groupe Ndi Samba Formation",
+      features: "Commandes + Assistant IA OpenAI",
       timestamp: new Date().toISOString()
     }), 
     { 
