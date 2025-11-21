@@ -24,7 +24,7 @@ if (OPENAI_API_KEY) {
 // ✅ SOLUTION GARANTIE : Initialisation avec botInfo
 const bot = new Bot(BOT_TOKEN, {
   botInfo: {
-    id: 7897897890,
+    id: 5107090126,
     is_bot: true,
     first_name: "SambaLearnBot",
     username: "SambaLearnBot",
