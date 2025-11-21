@@ -1,9 +1,19 @@
 // app/api/webhook/route.js - VERSION CORRIGÉE
-import { Bot } from "grammy";
 import { OpenAI } from "openai";
+import { bot } from "../../lib/bot.js";
 
-const BOT_TOKEN = process.env.BOT_TOKEN;
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
+
+// Configuration OpenAI
+let openai = null;
+if (OPENAI_API_KEY) {
+  openai = new OpenAI({
+    apiKey: OPENAI_API_KEY, // Correction : "apiKey" au lieu de "apikey"
+  });
+  console.log("📌 OpenAI configuré");
+} else {
+  console.log("📌 OpenAI non configuré - Ajoutez OPENAI_API_KEY");
+}
 
 // Validation du BOT_TOKEN
 if (!BOT_TOKEN) {
