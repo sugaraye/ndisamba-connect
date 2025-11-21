@@ -2,7 +2,6 @@
 import { NextResponse } from "next/server";
 import { bot } from "../../lib/bot.js";
 
-let bot = null;
 
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 
