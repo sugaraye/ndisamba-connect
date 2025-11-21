@@ -176,12 +176,12 @@ bot.command("frais", (ctx) => {
 export async function POST(request) {
   try {
     const body = await request.json();
-    console.log("📍 Webhook appelé à:", new Date().toISOString());
-    console.log("📦 Update reçu:", body);
+    console.log("📍 Webhook appelé - Update ID:", body.update_id);
     
-    await bot.handleUpdate(body);
+    // 🔥 IMPORTANT: Ne pas await pour répondre rapidement à Telegram
+    bot.handleUpdate(body).catch(console.error);
     
-    console.log("✅ Update traité avec succès");
+    // Répondre immédiatement à Telegram
     return NextResponse.json({ status: "ok" });
     
   } catch (error) {
@@ -191,5 +191,8 @@ export async function POST(request) {
 }
 
 export async function GET() {
-  return NextResponse.json({ status: "Webhook is running" });
+  return NextResponse.json({ 
+    status: "Webhook running",
+    timestamp: new Date().toISOString()
+  });
 }
