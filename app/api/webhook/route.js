@@ -1,6 +1,8 @@
-// app/api/webhook/route.js - VERSION CORRIGÉE
+// app/api/webhook/route.js
 import { NextResponse } from "next/server";
-import { bot } from "../../lib/bot.js";
+
+// Import dynamique pour éviter les erreurs
+let bot = null;
 
 
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
@@ -176,8 +178,13 @@ bot.command("frais", (ctx) => {
 
 async function initializeBot() {
   if (!bot) {
-    const { bot: importedBot } = await import("../../../lib/bot.js");
-    // bot = importedBot;
+    try {
+      const { bot: importedBot } = await import("../../../lib/bot.js");
+      bot = importedBot;
+    } catch (error) {
+      console.error("❌ Erreur import bot:", error);
+      throw error;
+    }
   }
   return bot;
 }
