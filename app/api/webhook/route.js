@@ -43,7 +43,7 @@ bot.catch((err) => {
 
 async function getAIResponse(question) {
   if (!openai) {
-    return "🤖 *Assistant IA*\n\nL'intelligence artificielle n'est pas configurée pour le moment.\n\n📞 Contactez-nous directement : +237 689 18 43 39\n📧 infos@groupendisambaformation.com";
+    return `🤖 *Assistant IA*\n\nL'intelligence artificielle n'est pas configurée pour le moment.\n\n📞 Contactez-nous directement :\n• Admissions: +237 689 18 43 39\n• Urgences: +237 696 16 49 32\n• Email: infos@groupendisambaformation.com`;
   }
 
   try {
@@ -62,7 +62,7 @@ INFORMATIONS SUR LE GROUPE :
 • E-learning - Formations en ligne
 • Services - Logistique, conseil, juridique
 
-TUI DOIS :
+TU DOIS :
 • Répondre en français de manière professionnelle
 • Être concis et utile (max 400 mots)
 • Proposer des contacts si besoin
@@ -84,6 +84,10 @@ Si tu ne sais pas, oriente vers les contacts officiels.`
     
   } catch (error) {
     console.error("❌ Erreur OpenAI:", error);
+    // Message d'erreur plus spécifique
+    if (error.code === 'insufficient_quota') {
+      return `🤖 *Assistant IA*\n\nService temporairement indisponible.\n\n📞 Contactez-nous directement :\n• Admissions: +237 689 18 43 39\n• Urgences: +237 696 16 49 32`;
+    }
     return `🤖 *Assistant IA*\n\nDésolé, je rencontre une difficulté technique.\n\n📞 Contactez-nous directement :\n• Admissions: +237 689 18 43 39\n• Urgences médicales: +237 696 16 49 32\n• Email: infos@groupendisambaformation.com`;
   }
 }
@@ -148,6 +152,14 @@ bot.command("ask", async (ctx) => {
     );
   }
 
+  // Vérifier la longueur de la question
+  if (question.length > 500) {
+    return ctx.reply(
+      "❌ Votre question est trop longue. Veuillez la simplifier en moins de 500 caractères.",
+      { parse_mode: "Markdown" }
+    );
+  }
+
   // Message "typing"
   await ctx.api.sendChatAction(ctx.chat.id, "typing");
   
@@ -159,11 +171,17 @@ bot.command("ask", async (ctx) => {
     // Supprimer le message "Je réfléchis"
     await ctx.api.deleteMessage(ctx.chat.id, thinkingMsg.message_id);
     
-    // Envoyer la réponse
-    await ctx.reply(response, { parse_mode: "Markdown" });
+    // Vérifier la longueur de la réponse
+    if (response.length > 4096) {
+      await ctx.reply(response.substring(0, 4090) + "...", { parse_mode: "Markdown" });
+      await ctx.reply("📝 *Suite de la réponse...*\n\nPour plus d'informations, contactez-nous directement.", { parse_mode: "Markdown" });
+    } else {
+      await ctx.reply(response, { parse_mode: "Markdown" });
+    }
     
   } catch (error) {
     console.error("Erreur commande /ask:", error);
+    await ctx.api.deleteMessage(ctx.chat.id, thinkingMsg.message_id);
     await ctx.reply(
       "❌ Désolé, une erreur s'est produite. Contactez-nous directement au +237 689 18 43 39",
       { parse_mode: "Markdown" }
@@ -178,7 +196,7 @@ bot.command("about", (ctx) => {
     `*🏛️ Groupe Ndi Samba Formation*
 
 *Notre Histoire :*
-Fondé par Joseph Ndi Samba, notre groupe perpétue une tradition d'excellence depuis plus de 50 ans dans l'éducation et les services.
+Fondé par Joseph Ndi Samba, notre groupe perpétue une tradition d'excellence depuis plus de 57 ans dans l'éducation et les services.
 
 *Notre Mission :*
 Former les leaders de demain et offrir des services innovants pour le développement de l'Afrique.
@@ -190,10 +208,42 @@ Devenir le leader africain de l'éducation intégrée et des services multisecto
 • 12 entités spécialisées
 • 4 pays d'implantation  
 • 50+ années d'expérience
-• 10,000+ étudiants formés
+• 300,000+ élèves et étudiants formés
 
 *Direction :*
 Raymond Samba Ndi - Directeur Général`,
+    { parse_mode: "Markdown" }
+  );
+});
+
+bot.command("sante", (ctx) => {
+  ctx.reply(
+    `*🏥 Services de Santé RIRCO*
+
+*Consultations :*
+• Médecine générale
+• Spécialités médicales
+• Médecine naturelle intégrative
+• Suivi de santé personnalisé
+
+*Examens :*
+• Laboratoire d'analyses
+• Imagerie médicale
+• Bilans de santé complets
+
+*Produits Naturels :*
+• Ngul Be Tara (spécialité maison)
+• Thé Mayi (détoxification)
+• Arthro-Soulage (articulations)
+• Digest-Comfort (digestion)
+• Sleep-Nature (sommeil)
+
+*Urgences :*
+🚨 +237 696 16 49 32 (24h/24)
+
+*Rendez-vous :*
+📞 +237 696 16 49 32
+📍 Campus Ndi Samba, Yaoundé`,
     { parse_mode: "Markdown" }
   );
 });
@@ -233,7 +283,7 @@ bot.command("filieres", (ctx) => {
 *INSTITUT UNIVERSITAIRE JOSEPH NDI SAMBA*
 • Licence en Management
 • Licence en Informatique  
-• Licence en Génie Civil
+• Licence en GRH
 • Licence en Commerce International
 • Masters Professionnels
 • MBA Management
@@ -244,6 +294,8 @@ bot.command("filieres", (ctx) => {
 • BTS Génie Civil
 • BTS Électronique
 • Licences Professionnelles
+• Licences Technologiques
+• Masters Professionnels et Technologiques
 
 *ENSEIGNEMENT SECONDAIRE*
 • Secondaire Général
@@ -253,6 +305,8 @@ bot.command("filieres", (ctx) => {
 *E-LEARNING*
 • Formations en ligne
 • Certifications professionnelles
+• Certifications internationales
+• Préparations aux certifications de langues
 • Cours à distance
 
 Tapez /admissions pour la procédure d'inscription`,
@@ -294,7 +348,7 @@ bot.command("admissions", (ctx) => {
 
 bot.command("frais", (ctx) => {
   ctx.reply(
-    `*💵 Frais de Scolarité 2024*
+    `*💵 Frais de Scolarité 2025-2026*
 
 *ENSEIGNEMENT SUPÉRIEUR*
 • BTS: 250,000 - 300,000 FCFA/an
@@ -306,14 +360,14 @@ bot.command("frais", (ctx) => {
 • BTS: 250,000 - 300,000 FCFA/an
 • Licence: 450,000 - 500,000 FCFA/an
 • Master: 600,000 - 800,000 FCFA/an
-• Frais d'inscription: 50,000 FCFA
+• Frais d'inscription: 25,000 FCFA
 
 *E-LEARNING*
 • Certifications: 75,000 - 200,000 FCFA
 • Formations en ligne: tarifs variables
 
 *Options de paiement :*
-• Paiement comptant (15% réduction)
+• Paiement comptant (20% réduction)
 • Échelonnement sur 3 tranches
 • Paiement mensuel possible
 • Mobile Money, virement, MAVIANCE QR
