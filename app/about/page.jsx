@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import Image from 'next/image';
+import PersonImage from '../../components/PersonImage';
 
 export default function About() {
   return (
@@ -29,21 +29,11 @@ export default function About() {
               
               {/* Photo Joseph Ndi Samba */}
               <div className="flex items-center gap-4 bg-blue-50 p-4 rounded-lg my-6">
-                <div className="w-20 h-20 relative">
-                  <Image
-                    src="/images/joseph-ndi-samba.jpg"
-                    alt="Joseph Ndi Samba - Fondateur"
-                    fill
-                    className="rounded-full object-cover"
-                    onError={(e) => {
-                      e.target.style.display = 'none';
-                      e.target.nextSibling.style.display = 'flex';
-                    }}
-                  />
-                  <div className="hidden w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-700 rounded-full flex items-center justify-center text-white text-2xl">
-                    👑
-                  </div>
-                </div>
+                <PersonImage
+                  src="/images/joseph-ndi-samba.jpg"
+                  alt="Joseph Ndi Samba - Fondateur"
+                  size="small"
+                />
                 <div>
                   <h4 className="font-bold text-blue-900">Joseph Ndi Samba</h4>
                   <p className="text-sm text-gray-600">Fondateur Visionnaire (1968-2016)</p>
@@ -100,21 +90,11 @@ export default function About() {
             {/* Raymond Samba Ndi */}
             <div className="bg-white rounded-2xl p-8 border border-blue-200">
               <div className="flex flex-col md:flex-row gap-6 items-center">
-                <div className="w-32 h-32 relative">
-                  <Image
-                    src="/images/raymond-samba-ndi.jpg"
-                    alt="Raymond Samba Ndi - PDG"
-                    fill
-                    className="rounded-full object-cover"
-                    onError={(e) => {
-                      e.target.style.display = 'none';
-                      e.target.nextSibling.style.display = 'flex';
-                    }}
-                  />
-                  <div className="hidden w-32 h-32 bg-gradient-to-br from-blue-500 to-blue-700 rounded-full flex items-center justify-center text-white text-4xl">
-                    👨‍💼
-                  </div>
-                </div>
+                <PersonImage
+                  src="/images/raymond-samba-ndi.jpg"
+                  alt="Raymond Samba Ndi - PDG"
+                  size="medium"
+                />
                 <div>
                   <h3 className="text-2xl font-bold text-blue-900 mb-2">Raymond Samba Ndi</h3>
                   <p className="text-orange-600 font-semibold mb-3">Président Directeur Général du Groupe et PCA de la Fondation J. Ndi Samba pour l'éducation</p>
@@ -129,6 +109,7 @@ export default function About() {
                       <li>• Ouverture de Campus Latina Espagne (2019)</li>
                       <li>• Création de NS Logistique Transit France (2025)</li>
                       <li>• Développement de Samba Automobiles (2016)</li>
+					  <li>• Ratification de plusieurs partenariats nationaux et internationaux</li>
                     </ul>
                   </div>
                 </div>
@@ -138,24 +119,14 @@ export default function About() {
             {/* Dr. Marlyse Peyou Ndi */}
             <div className="bg-white rounded-2xl p-8 border border-blue-200">
               <div className="flex flex-col md:flex-row gap-6 items-center">
-                <div className="w-32 h-32 relative">
-                  <Image
-                    src="/images/marlyse-peyou-ndi.jpg"
-                    alt="Dr. Marlyse Peyou Ndi - Directrice RIRCO"
-                    fill
-                    className="rounded-full object-cover"
-                    onError={(e) => {
-                      e.target.style.display = 'none';
-                      e.target.nextSibling.style.display = 'flex';
-                    }}
-                  />
-                  <div className="hidden w-32 h-32 bg-gradient-to-br from-green-500 to-green-700 rounded-full flex items-center justify-center text-white text-4xl">
-                    👩‍⚕️
-                  </div>
-                </div>
+                <PersonImage
+                  src="/images/marlyse-peyou-ndi.jpg"
+                  alt="Dr. Marlyse Peyou Ndi - Directrice RIRCO"
+                  size="medium"
+                />
                 <div>
                   <h3 className="text-2xl font-bold text-blue-900 mb-2">Dr. Marlyse Peyou Ndi</h3>
-                  <p className="text-orange-600 font-semibold mb-3">Directrice du Centre Médical RIRCO</p>
+                  <p className="text-orange-600 font-semibold mb-3">Directrice du Laboratoire de Recherche et Centre Médical RIRCO</p>
                   <p className="text-gray-700 mb-4">
                     Chercheuse et inventrice visionnaire, elle dirige le centre médical et laboratoire de recherche scientifique 
                     avec une approche innovante de la médecine naturelle.
@@ -175,7 +146,8 @@ export default function About() {
           </div>
         </div>
 
-        {/* Section Notre Mission */}
+        {/* Le reste de votre code reste inchangé */}
+		{/* Section Notre Mission */}
         <div className="bg-blue-900 text-white rounded-2xl p-8 md:p-12 mb-20">
           <div className="grid md:grid-cols-3 gap-8">
             <div>
@@ -318,6 +290,7 @@ export default function About() {
             </Link>
           </div>
         </div>
+		                
       </div>
     </div>
   );
