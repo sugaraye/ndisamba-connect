@@ -1,13 +1,14 @@
-// app/api/webhook/route.js - VERSION AVEC OPENAI
+// app/api/webhook/route.js - VERSION CORRIGÉE
 import { Bot } from "grammy";
 import { OpenAI } from "openai";
 
 const BOT_TOKEN = process.env.BOT_TOKEN;
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 
+// Validation du BOT_TOKEN
 if (!BOT_TOKEN) {
   console.error("❌ BOT_TOKEN non configuré");
-  throw new Error("BOT_TOKEN manquant");
+  throw new Error("BOT_TOKEN manquant - Configurez-le dans Vercel");
 }
 
 // Configuration OpenAI (si la clé est présente)
@@ -21,7 +22,7 @@ if (OPENAI_API_KEY) {
   console.log("⚠️ OpenAI non configuré - Ajoutez OPENAI_API_KEY");
 }
 
-// ✅ SOLUTION GARANTIE : Initialisation avec botInfo
+// ✅ UNE SEULE DÉCLARATION du bot
 const bot = new Bot(BOT_TOKEN, {
   botInfo: {
     id: 5107090126,
@@ -31,6 +32,9 @@ const bot = new Bot(BOT_TOKEN, {
     can_join_groups: true,
     can_read_all_group_messages: false,
     supports_inline_queries: false
+  },
+  client: {
+    timeout: 10000, // 10 secondes
   }
 });
 
@@ -55,10 +59,10 @@ async function getAIResponse(question) {
           content: `Tu es l'assistant expert du Groupe Ndi Samba Formation. 
 
 INFORMATIONS SUR LE GROUPE :
-• Enseignement supérieur (IUJS) - Licences, Masters, MBA
-• Formation polytechnique (Polytech) - BTS, Licences pro
+• Enseignement supérieur (IUJS) - Licences, Masters
+• Formation polytechnique (Polytech) - BTS, Licences techno & pro, Masters techno & pro
 • Centre médical RIRCO - Médecine, urgences 24h/24
-• Campus international - Espagne, échanges
+• Agence internationale - Espagne, échanges
 • E-learning - Formations en ligne
 • Services - Logistique, conseil, juridique
 
@@ -84,10 +88,6 @@ Si tu ne sais pas, oriente vers les contacts officiels.`
     
   } catch (error) {
     console.error("❌ Erreur OpenAI:", error);
-    // Message d'erreur plus spécifique
-    if (error.code === 'insufficient_quota') {
-      return `🤖 *Assistant IA*\n\nService temporairement indisponible.\n\n📞 Contactez-nous directement :\n• Admissions: +237 689 18 43 39\n• Urgences: +237 696 16 49 32`;
-    }
     return `🤖 *Assistant IA*\n\nDésolé, je rencontre une difficulté technique.\n\n📞 Contactez-nous directement :\n• Admissions: +237 689 18 43 39\n• Urgences médicales: +237 696 16 49 32\n• Email: infos@groupendisambaformation.com`;
   }
 }
@@ -117,7 +117,7 @@ bot.command("start", (ctx) => {
 • Produits Ngul Be Tara
 
 💼 *SERVICES*
-• Logistique internationale
+• Logistique & transit international
 • Conseil en management
 • Services juridiques
 • Services automobiles
@@ -196,7 +196,7 @@ bot.command("about", (ctx) => {
     `*🏛️ Groupe Ndi Samba Formation*
 
 *Notre Histoire :*
-Fondé par Joseph Ndi Samba, notre groupe perpétue une tradition d'excellence depuis plus de 57 ans dans l'éducation et les services.
+Fondé par Joseph Ndi Samba, notre groupe perpétue une tradition d'excellence depuis plus de 50 ans dans l'éducation et les services.
 
 *Notre Mission :*
 Former les leaders de demain et offrir des services innovants pour le développement de l'Afrique.
@@ -207,43 +207,11 @@ Devenir le leader africain de l'éducation intégrée et des services multisecto
 *Chiffres Clés :*
 • 12 entités spécialisées
 • 4 pays d'implantation  
-• 50+ années d'expérience
+• 57+ années d'expérience
 • 300,000+ élèves et étudiants formés
 
 *Direction :*
 Raymond Samba Ndi - Directeur Général`,
-    { parse_mode: "Markdown" }
-  );
-});
-
-bot.command("sante", (ctx) => {
-  ctx.reply(
-    `*🏥 Services de Santé RIRCO*
-
-*Consultations :*
-• Médecine générale
-• Spécialités médicales
-• Médecine naturelle intégrative
-• Suivi de santé personnalisé
-
-*Examens :*
-• Laboratoire d'analyses
-• Imagerie médicale
-• Bilans de santé complets
-
-*Produits Naturels :*
-• Ngul Be Tara (spécialité maison)
-• Thé Mayi (détoxification)
-• Arthro-Soulage (articulations)
-• Digest-Comfort (digestion)
-• Sleep-Nature (sommeil)
-
-*Urgences :*
-🚨 +237 696 16 49 32 (24h/24)
-
-*Rendez-vous :*
-📞 +237 696 16 49 32
-📍 Campus Ndi Samba, Yaoundé`,
     { parse_mode: "Markdown" }
   );
 });
@@ -253,7 +221,7 @@ bot.command("contact", (ctx) => {
     `*📞 Contacts du Groupe Ndi Samba Formation*
 
 *Siège Principal :*
-📍 Yaoundé, Cameroun
+📍 Mbalmayo, Cameroun
 
 *Téléphones :*
 📞 +237 689 18 43 39
@@ -264,7 +232,7 @@ bot.command("contact", (ctx) => {
 📧 infos@groupendisambaformation.com
 
 *Site Web :*
-🌐 https://ndisamba-connect.vercel.app
+🌐 https://groupendisambaformation.com
 
 *Réseaux :*
 💬 WhatsApp: +237 689 18 43 39
@@ -281,21 +249,19 @@ bot.command("filieres", (ctx) => {
     `*🎓 Filiales et Programmes disponibles :*
 
 *INSTITUT UNIVERSITAIRE JOSEPH NDI SAMBA*
-• Licence en Management
-• Licence en Informatique  
+• Licences en Management
+• Licences en Informatique  
 • Licence en GRH
 • Licence en Commerce International
 • Masters Professionnels
-• MBA Management
 
 *NDI SAMBA POLYTECH*
 • BTS Maintenance Industrielle
 • BTS Informatique & Réseaux
-• BTS Génie Civil
-• BTS Électronique
-• Licences Professionnelles
-• Licences Technologiques
-• Masters Professionnels et Technologiques
+• BTS Electrotechnique
+• PREPA Ingenieur
+• Licences Professionnelles & Licences Technologiques
+• Masters Professionnels & Masters Technologiques
 
 *ENSEIGNEMENT SECONDAIRE*
 • Secondaire Général
@@ -305,9 +271,8 @@ bot.command("filieres", (ctx) => {
 *E-LEARNING*
 • Formations en ligne
 • Certifications professionnelles
-• Certifications internationales
-• Préparations aux certifications de langues
-• Cours à distance
+• Preparations aux certifications de langues
+• Cours à distance (licences, Masters)
 
 Tapez /admissions pour la procédure d'inscription`,
     { parse_mode: "Markdown" }
@@ -332,8 +297,8 @@ bot.command("admissions", (ctx) => {
 4. Inscription définitive
 
 *Dates importantes :*
-• Rentrée : Septembre
-• Inscriptions : Mars à Juillet
+• Rentrée : Septembre pour le secondaire et Octobre-Novembre pour le supérieur
+• Inscriptions : Mars à Septembre
 • Tests d'entrée : Juillet-Août
 
 *Lien d'inscription :*
@@ -348,9 +313,9 @@ bot.command("admissions", (ctx) => {
 
 bot.command("frais", (ctx) => {
   ctx.reply(
-    `*💵 Frais de Scolarité 2025-2026*
+    `*💵 Frais de Scolarité 2024*
 
-*ENSEIGNEMENT SUPÉRIEUR*
+*ENSEIGNEMENT SUPÉRIEUR (IUJS)*
 • BTS: 250,000 - 300,000 FCFA/an
 • Licence: 450,000 - 500,000 FCFA/an
 • Master: 550,000 - 700,000 FCFA/an
@@ -358,7 +323,7 @@ bot.command("frais", (ctx) => {
 
 *ENSEIGNEMENT POLYTECHNIQUE*
 • BTS: 250,000 - 300,000 FCFA/an
-• Licence: 450,000 - 500,000 FCFA/an
+• Licence Pro: 450,000 - 500,000 FCFA/an
 • Master: 600,000 - 800,000 FCFA/an
 • Frais d'inscription: 25,000 FCFA
 
@@ -433,6 +398,39 @@ Tapez /sante pour plus d'infos`,
   );
 });
 
+// Ajout de la commande /sante manquante
+bot.command("sante", (ctx) => {
+  ctx.reply(
+    `*🏥 Services de Santé RIRCO*
+
+*Consultations :*
+• Médecine générale
+• Spécialités médicales
+• Médecine naturelle intégrative
+• Suivi de santé personnalisé
+
+*Examens :*
+• Laboratoire d'analyses
+• Imagerie médicale
+• Bilans de santé complets
+
+*Produits Naturels :*
+• Ngul Be Tara (spécialité maison)
+• Thé Mayi (détoxification)
+• Arthro-Soulage (articulations)
+• Digest-Comfort (digestion)
+• Sleep-Nature (sommeil)
+
+*Urgences :*
+🚨 +237 696 16 49 32 (24h/24)
+
+*Rendez-vous :*
+📞 +237 696 16 49 32
+📍 Campus Ndi Samba, Yaoundé-Tropicana`,
+    { parse_mode: "Markdown" }
+  );
+});
+
 bot.command("help", (ctx) => {
   ctx.reply(
     `*🆘 Aide - Commandes disponibles :*
@@ -444,6 +442,9 @@ bot.command("help", (ctx) => {
 /frais - Frais de scolarité
 /inscription - Lien inscription en ligne
 
+*🤖 ASSISTANT IA*
+/ask - Posez une question à l'IA
+
 *🏥 SANTÉ RIRCO*
 /rirco - Centre Médical RIRCO
 /sante - Services médicaux
@@ -451,9 +452,6 @@ bot.command("help", (ctx) => {
 *🌍 INTERNATIONAL*
 /certifications - Certifications internationales
 /elearning - Plateforme en ligne
-
-*🤖 ASSISTANT IA*
-/ask - Posez une question à l'IA
 
 *💼 SERVICES*
 /contact - Coordonnées complètes
