@@ -1,4 +1,5 @@
 // app/api/webhook/route.js - VERSION CORRIGÉE
+import { NextResponse } from "next/server";
 import { OpenAI } from "openai";
 import { bot } from "../../lib/bot.js";
 
@@ -46,6 +47,19 @@ const bot = new Bot(BOT_TOKEN, {
   client: {
     timeout: 10000, // 10 secondes
   }
+});
+
+// Activez les logs détaillés
+bot.api.config.use(async (prev, method, payload) => {
+    console.log(`📤 Appel API: ${method}`, payload);
+    try {
+        const result = await prev(method, payload);
+        console.log(`✅ Réponse API: ${method}`, result);
+        return result;
+    } catch (error) {
+        console.error(`❌ Erreur API: ${method}`, error);
+        throw error;
+    }
 });
 
 // Error handler global
@@ -104,11 +118,19 @@ Si tu ne sais pas, oriente vers les contacts officiels.`
 
 // ==================== COMMANDES PRINCIPALES ====================
 
-bot.command("start", (ctx) => {
-  ctx.reply(
-    `🎓 *Bienvenue au Groupe Ndi Samba Formation* 🏥
+// Après la création du bot
+    bot.command("start", async (ctx) => {
+        console.log("🔄 Commande /start reçue");
+        await ctx.reply("🎉 Bienvenue sur SambaLearnBot !");
+        console.log("✅ Réponse envoyée");
+    });
 
-*Écosystème complet d'éducation et de services :*
+    bot.on("message", async (ctx) => {
+        console.log("📱 Message texte reçu:", ctx.message.text);
+        await ctx.reply(`Vous avez dit: "${ctx.message.text}"`);
+    });
+
+  *Écosystème complet d'éducation et de services :*
 
 🏫 *ENSEIGNEMENT*
 • Enseignement Supérieur (IUJS)
@@ -133,7 +155,7 @@ bot.command("start", (ctx) => {
 • Services automobiles
 
 🤖 *ASSISTANT IA*
-Tapez /ask suivi de votre question pour une assistance intelligente !`,
+Tapez /ask suivi de votre question pour une assistance intelligente !,
     { 
       parse_mode: "Markdown",
       reply_markup: {
@@ -452,9 +474,6 @@ bot.command("help", (ctx) => {
 /frais - Frais de scolarité
 /inscription - Lien inscription en ligne
 
-*🤖 ASSISTANT IA*
-/ask - Posez une question à l'IA
-
 *🏥 SANTÉ RIRCO*
 /rirco - Centre Médical RIRCO
 /sante - Services médicaux
@@ -467,11 +486,21 @@ bot.command("help", (ctx) => {
 /contact - Coordonnées complètes
 /support - Assistance technique
 
+*🤖 ASSISTANT IA*
+/ask - Posez une question à l'IA
+
 *Tapez une commande ou utilisez le clavier*`,
     { parse_mode: "Markdown" }
   );
 });
 
+bot.command("test", async (ctx) => {
+    await ctx.reply("🤖 Bot opérationnel!");
+});
+
+bot.command("ping", async (ctx) => {
+    await ctx.reply("🏓 pong!");
+});
 // ==================== GESTION DES MESSAGES ====================
 
 bot.on("message:text", async (ctx) => {
@@ -521,44 +550,21 @@ async function processUpdateAsync(update) {
   }
 }
 
-export async function POST(req) {
-  console.log("📍 Webhook appelé à:", new Date().toISOString());
-  
-  try {
-    const update = await req.json();
-    console.log("📱 Message reçu:", update?.message?.text || "Pas de texte");
-    console.log("👤 De:", update?.message?.from?.first_name || "Inconnu");
-    
-    // 🔥 RÉPONDRE IMMÉDIATEMENT à Telegram
-    const response = new Response("OK");
-    
-    // 🔥 TRAITEMENT ASYNCHRONE (après la réponse)
-    setTimeout(async () => {
-      try {
-        await processUpdateAsync(update);
-      } catch (asyncError) {
-        console.error("💥 Erreur dans le traitement async:", asyncError);
-      }
-    }, 0);
-    
-    return response;
-
-  } catch (err) {
-    console.error("💥 ERREUR CRITIQUE dans POST:", err);
-    return new Response("Error", { status: 500 });
-  }
+export async function POST(request) {
+    try {
+        const body = await request.json();
+        console.log("📦 Update reçu:", body);
+        
+        await bot.handleUpdate(body);
+        
+        return NextResponse.json({ status: "ok" });
+    } catch (error) {
+        console.error("❌ Erreur webhook:", error);
+        return NextResponse.json({ error: "Internal error" }, { status: 500 });
+    }
 }
 
 export async function GET() {
-  return new Response(
-    JSON.stringify({ 
-      status: "Bot en ligne - Groupe Ndi Samba Formation",
-      features: "Commandes + Assistant IA OpenAI",
-      timestamp: new Date().toISOString()
-    }), 
-    { 
-      status: 200,
-      headers: { 'Content-Type': 'application/json' } 
-    }
-  );
-}
+    return NextResponse.json({ status: "Webhook is running" });
+  }
+     
