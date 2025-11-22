@@ -209,11 +209,25 @@ export default function PolytechPage() {
         {/* En-tête Hero */}
         <div className="bg-gradient-to-r from-gray-700 to-gray-900 rounded-2xl text-white p-8 md:p-12 mb-8">
           <div className="flex flex-col md:flex-row gap-8 items-start">
+            
             <div className="flex-shrink-0">
-              <div className="w-20 h-20 bg-white bg-opacity-20 rounded-xl flex items-center justify-center text-2xl">
-                ⚙️
+              <div className="w-21 h-21 bg-white bg-opacity-20 rounded-xl flex items-center justify-center p-2">
+                <img 
+                  src={entity.logo} 
+                  alt={`Logo ${entity.name}`}
+                  className="w-full h-full object-contain"
+                  onError={(e) => {
+                    // Fallback si le logo n'existe pas
+                    e.target.style.display = 'none';
+                    e.target.nextSibling.style.display = 'flex';
+                  }}
+                />
+                <div className="w-full h-full hidden items-center justify-center text-2xl">
+                  ⚙️
+                </div>
               </div>
             </div>
+
             <div className="flex-1">
               <h1 className="text-3xl md:text-4xl font-bold mb-4">
                 {entity.name}

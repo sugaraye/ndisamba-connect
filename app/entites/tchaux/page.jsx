@@ -28,7 +28,8 @@ export default function TchauxPage() {
     // Informations détaillées
     founded: "2018",
     director: "Mme. Chantal Ndi",
-    accreditation: "Classement 4 étoiles - Ministère du Tourisme",
+    gerant: "Mr Roland Junior NGUELE",
+    accreditation: "Classement 3 étoiles - Ministère du Tourisme",
     recognition: "Membre des Hôtels Prestiges du Cameroun",
     
     // Hébergement
@@ -502,7 +503,7 @@ export default function TchauxPage() {
         <div className="mt-12 bg-gradient-to-r from-green-500 to-green-600 rounded-2xl p-8 text-white text-center">
           <h2 className="text-2xl font-bold mb-4">Prêt pour un séjour mémorable ?</h2>
           <p className="text-green-100 mb-6 max-w-2xl mx-auto">
-            Réservez dès maintenant votre séjour dans l'hôtel 4 étoiles de référence à Yaoundé.
+            Réservez dès maintenant votre séjour dans l'hôtel 3 étoiles de référence à Yaoundé.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a 

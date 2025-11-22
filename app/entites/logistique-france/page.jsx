@@ -11,7 +11,7 @@ export default function LogistiqueFrancePage() {
     description: "Société spécialisée dans le transit international, la logistique et le dédouanement entre la France et l'Afrique. Solutions sur mesure pour entreprises et particuliers avec suivi personnalisé.",
     site: "https://nslogistique.fr",
     image: "/assets/images/logistique-entrepot.jpg",
-    logo: "/assets/logos/logo-logistique.png",
+    logo: "/assets/logos/logo-logistique.webp",
     category: "Logistique",
     locations: [
       {

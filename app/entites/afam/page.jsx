@@ -26,7 +26,7 @@ export default function AfamPage() {
     
     // Informations détaillées
     founded: "2012",
-    director: "Dr. Alain Fotso",
+    director: "Roland Junior NGUELE",
     accreditation: "Cabinet de Conseil Certifié ISO 9001:2015",
     recognition: "Membre de l'Association des Cabinets de Conseil en Management",
     
@@ -151,7 +151,7 @@ export default function AfamPage() {
           certifications: ["MBA HEC Paris", "Certified Management Consultant", "Black Belt Six Sigma"]
         },
         {
-          name: "Mme. Chantal Ngo",
+          name: "Mr. Guy EONE",
           specialite: "Ressources Humaines & Transformation",
           experience: "15 ans",
           certifications: ["Master RH Paris-Dauphine", "Coach Certifiée", "Spécialiste Changement"]
