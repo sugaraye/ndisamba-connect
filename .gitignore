@@ -1,0 +1,15 @@
+node_modules/
+.next/
+out/
+dist/
+*.zip
+*.tar
+*.rar
+*.7z
+*.log
+*.mp4
+*.mp3
+*.exe
+*.dll
+*.iso
+*.psd

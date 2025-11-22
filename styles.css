@@ -1,0 +1,28 @@
+/* styles.css - NdiSamba Connect PRO */
+:root{--blue:#0b48b3;--dark:#09307a;--muted:#f3f7fb;--accent:#0fb07a;--text:#0b2b4a}
+*{box-sizing:border-box}body{font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial;margin:0;color:var(--text);background:var(--muted)}
+.header{background:var(--blue);color:white;padding:14px 20px;display:flex;align-items:center;gap:18px}
+.header img.logo{height:52px;width:120px;object-fit:contain;border-radius:6px;background:white;padding:6px}
+.header .brand{font-weight:800;font-size:20px}
+.nav{margin-left:auto;display:flex;gap:18px;align-items:center}
+.nav a{color:rgba(255,255,255,0.95);text-decoration:none;font-weight:600}
+.hero{background:linear-gradient(90deg,#0b7be0,#05b88d);color:white;padding:60px 20px;text-align:center}
+.hero h1{font-size:48px;margin:0 0 12px}
+.hero p{font-size:18px;margin:0 0 20px;opacity:0.95}
+.cta{display:inline-block;background:white;color:var(--blue);padding:12px 20px;border-radius:10px;font-weight:700;text-decoration:none;box-shadow:0 6px 18px rgba(11,75,179,0.12)}
+.container{max-width:1100px;margin:28px auto;padding:0 18px}
+.search{background:white;border-radius:10px;padding:18px;box-shadow:0 6px 18px rgba(11,43,74,0.06);margin-top:-36px;display:flex;align-items:center}
+.search input{flex:1;padding:14px 18px;border:1px solid #e6eef6;border-radius:8px;font-size:16px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;margin-top:18px}
+.card{background:white;border-radius:12px;overflow:hidden;box-shadow:0 8px 18px rgba(9,48,122,0.06);transition:transform .22s,box-shadow .22s;display:flex;flex-direction:column;min-height:320px}
+.card:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(9,48,122,0.1)}
+.card img{width:100%;height:180px;object-fit:cover;background:#f2f6fb}
+.card .card-body{padding:16px;flex:1;display:flex;flex-direction:column;justify-content:space-between}
+.card h3{margin:0 0 8px;color:var(--dark)}
+.meta{color:#6b7a8b;font-size:14px;margin-bottom:8px}
+.footer{background:var(--dark);color:white;padding:28px 18px;margin-top:38px}
+.footer .cols{display:flex;flex-wrap:wrap;gap:18px;max-width:1100px;margin:0 auto}
+.col{min-width:200px;flex:1}
+.footer a{color:rgba(255,255,255,0.9);text-decoration:none}
+.btn{background:var(--blue);color:white;padding:8px 12px;border-radius:8px;text-decoration:none;font-weight:700}
+@media(max-width:720px){.hero h1{font-size:28px}.nav{display:none}.search{margin-top:-20px}}

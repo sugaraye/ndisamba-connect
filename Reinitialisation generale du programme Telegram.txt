@@ -1,0 +1,59 @@
+﻿Write-Host "🚀 Nettoyage du projet Next.js..." -ForegroundColor Cyan
+
+# 1. Suppression des anciens modules et caches
+if (Test-Path "node_modules") {
+    Remove-Item -Recurse -Force "node_modules"
+    Write-Host "🧹 Dossier node_modules supprimé"
+} else {
+    Write-Host "✅ Aucun dossier node_modules à supprimer"
+}
+
+if (Test-Path "package-lock.json") {
+    Remove-Item -Force "package-lock.json"
+    Write-Host "🧾 Fichier package-lock.json supprimé"
+}
+
+Write-Host "🧼 Nettoyage du cache npm..."
+npm cache clean --force
+
+# 2. Réinstallation des dépendances
+Write-Host "📦 Réinstallation des dépendances du projet..."
+npm install
+
+# 3. Installation locale de TailwindCSS, PostCSS et Autoprefixer
+Write-Host "🎨 Installation de TailwindCSS et outils PostCSS..."
+npm install -D tailwindcss postcss autoprefixer
+
+# 4. Initialisation automatique de Tailwind
+Write-Host "⚙️ Initialisation de TailwindCSS..."
+npx tailwindcss init -p
+
+# 5. Vérification de la version
+Write-Host "🔍 Vérification de l'installation TailwindCSS..."
+npx tailwindcss --version
+
+Write-Host "✅ Installation complète terminée avec succès !" -ForegroundColor Green
+Write-Host ""
+Write-Host "👉 Étapes suivantes :" -ForegroundColor Yellow
+Write-Host "1️⃣  Ouvre tailwind.config.js et ajoute le contenu suivant :"
+Write-Host ""
+Write-Host '   module.exports = {'
+Write-Host '     content: ['
+Write-Host '       "./app/**/*.{js,ts,jsx,tsx}",'
+Write-Host '       "./pages/**/*.{js,ts,jsx,tsx}",'
+Write-Host '       "./components/**/*.{js,ts,jsx,tsx}"'
+Write-Host '     ],'
+Write-Host '     theme: { extend: {}, },'
+Write-Host '     plugins: [],'
+Write-Host '   }'
+Write-Host ""
+Write-Host "2️⃣  Vérifie que ton fichier globals.css contient :"
+Write-Host ""
+Write-Host '@tailwind base;'
+Write-Host '@tailwind components;'
+Write-Host '@tailwind utilities;'
+Write-Host ""
+Write-Host "3️⃣  Enfin, lance ton projet avec :" -ForegroundColor Yellow
+Write-Host "    npm run dev"
+Write-Host ""
+Write-Host "🌐 Puis ouvre ton navigateur sur http://localhost:3000"
