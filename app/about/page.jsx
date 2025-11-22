@@ -109,7 +109,7 @@ export default function About() {
                       <li>• Ouverture de Campus Latina Espagne (2019)</li>
                       <li>• Création de NS Logistique Transit France (2025)</li>
                       <li>• Développement de Samba Automobiles (2016)</li>
-					  <li>• Ratification de plusieurs partenariats nationaux et internationaux</li>
+					  <li>• Ratifications de plusieurs partenariats nationaux et internationaux</li>
                     </ul>
                   </div>
                 </div>
