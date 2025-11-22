@@ -83,6 +83,224 @@ export default function About() {
           </div>
         </div>
 
+        {/* Section Organigramme */}
+        <div className="mb-20">
+          <h2 className="text-3xl font-bold text-blue-800 text-center mb-12">Notre Structure Organisationnelle</h2>
+          
+          {/* Photo d'illustration - Siège social */}
+          <div className="mb-8 bg-white rounded-2xl p-6 border border-blue-200">
+            <div className="aspect-video bg-gray-100 rounded-lg flex items-center justify-center mb-4">
+              <span className="text-gray-400">Photo du siège social du groupe</span>
+            </div>
+            <p className="text-center text-sm text-gray-600">Siège social du Groupe Ndi Samba Formation</p>
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-8">
+            {/* Organigramme visuel */}
+            <div className="bg-white rounded-2xl p-6 border border-blue-200">
+              <h3 className="text-2xl font-bold text-blue-900 mb-6 text-center">Organigramme du Groupe</h3>
+              
+              {/* Structure hiérarchique */}
+              <div className="space-y-6">
+                {/* PDG */}
+                <div className="text-center">
+                  <div className="bg-blue-600 text-white rounded-lg p-4 mx-auto max-w-xs">
+                    <div className="w-16 h-16 bg-white rounded-full mx-auto mb-2 flex items-center justify-center">
+                      <span className="text-blue-600 text-xs">Photo PDG</span>
+                    </div>
+                    <h4 className="font-bold">Président Directeur Général</h4>
+                    <p className="text-sm opacity-90">Raymond Samba Ndi</p>
+                  </div>
+                </div>
+
+                {/* Ligne de connexion */}
+                <div className="flex justify-center">
+                  <div className="w-1 h-8 bg-blue-300"></div>
+                </div>
+
+                {/* Niveau 2 */}
+                <div className="grid grid-cols-3 gap-4">
+                  <div className="bg-blue-100 rounded-lg p-3 text-center">
+                    <div className="w-12 h-12 bg-blue-200 rounded-full mx-auto mb-2 flex items-center justify-center">
+                      <span className="text-blue-600 text-xs">Photo</span>
+                    </div>
+                    <h5 className="font-semibold text-blue-900 text-sm">Inspection Générale</h5>
+                  </div>
+                  <div className="bg-blue-100 rounded-lg p-3 text-center">
+                    <div className="w-12 h-12 bg-blue-200 rounded-full mx-auto mb-2 flex items-center justify-center">
+                      <span className="text-blue-600 text-xs">Photo</span>
+                    </div>
+                    <h5 className="font-semibold text-blue-900 text-sm">Secrétariat Général</h5>
+                  </div>
+                  <div className="bg-blue-100 rounded-lg p-3 text-center">
+                    <div className="w-12 h-12 bg-blue-200 rounded-full mx-auto mb-2 flex items-center justify-center">
+                      <span className="text-blue-600 text-xs">Photo</span>
+                    </div>
+                    <h5 className="font-semibold text-blue-900 text-sm">Cellule Coordination Internationale</h5>
+                  </div>
+                </div>
+
+                {/* Ligne de connexion */}
+                <div className="flex justify-center">
+                  <div className="w-1 h-8 bg-blue-300"></div>
+                </div>
+
+                {/* Niveau 3 - Directions Fonctionnelles */}
+                <div>
+                  <h6 className="text-center font-semibold text-gray-600 mb-3">Directions Fonctionnelles</h6>
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                    {[
+                      { name: 'Ressources Humaines', img: true },
+                      { name: 'Administrative & Financière', img: true },
+                      { name: 'Juridique', img: true },
+                      { name: 'Communication', img: true },
+                      { name: 'Systèmes d\'Information', img: true },
+                      { name: 'Qualité & Innovation', img: true }
+                    ].map((dept, index) => (
+                      <div key={index} className="bg-green-50 rounded p-2 text-center">
+                        {dept.img && (
+                          <div className="w-8 h-8 bg-green-200 rounded-full mx-auto mb-1 flex items-center justify-center">
+                            <span className="text-green-600 text-xs">Photo</span>
+                          </div>
+                        )}
+                        <span className="text-xs font-medium text-green-800">{dept.name}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Ligne de connexion */}
+                <div className="flex justify-center">
+                  <div className="w-1 h-8 bg-blue-300"></div>
+                </div>
+
+                {/* Niveau 4 - Pôles Opérationnels */}
+                <div>
+                  <h6 className="text-center font-semibold text-gray-600 mb-3">Pôles Opérationnels</h6>
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                    {[
+                      { name: 'Éducation & Formation', color: 'purple', img: true },
+                      { name: 'Juridique & Conseil', color: 'orange', img: true },
+                      { name: 'Santé & Recherche', color: 'red', img: true },
+                      { name: 'Logistique & Transit', color: 'blue', img: true },
+                      { name: 'Hôtellerie & Services', color: 'green', img: true }
+                    ].map((pole, index) => (
+                      <div key={index} className={`bg-${pole.color}-50 rounded p-2 text-center`}>
+                        {pole.img && (
+                          <div className={`w-8 h-8 bg-${pole.color}-200 rounded-full mx-auto mb-1 flex items-center justify-center`}>
+                            <span className={`text-${pole.color}-600 text-xs`}>Photo</span>
+                          </div>
+                        )}
+                        <span className={`text-xs font-medium text-${pole.color}-800`}>{pole.name}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Description détaillée avec photos */}
+            <div className="space-y-6">
+              {/* Photo équipe de direction */}
+              <div className="bg-white rounded-2xl p-6 border border-blue-200">
+                <h3 className="text-xl font-bold text-blue-900 mb-4">👥 Équipe de Direction</h3>
+                <div className="aspect-video bg-gray-100 rounded-lg flex items-center justify-center mb-3">
+                  <span className="text-gray-400">Photo de l'équipe de direction réunie</span>
+                </div>
+                <p className="text-sm text-gray-600 text-center">L'équipe dirigeante du groupe lors d'une réunion stratégique</p>
+              </div>
+
+              {/* Photo des directeurs fonctionnels */}
+              <div className="bg-white rounded-2xl p-6 border border-blue-200">
+                <h3 className="text-xl font-bold text-blue-900 mb-4">🏢 Directions Fonctionnelles</h3>
+                <div className="grid grid-cols-2 gap-4 mb-3">
+                  <div className="aspect-square bg-gray-100 rounded-lg flex items-center justify-center">
+                    <span className="text-gray-400 text-xs text-center">Directeur RH</span>
+                  </div>
+                  <div className="aspect-square bg-gray-100 rounded-lg flex items-center justify-center">
+                    <span className="text-gray-400 text-xs text-center">Directeur DAF</span>
+                  </div>
+                  <div className="aspect-square bg-gray-100 rounded-lg flex items-center justify-center">
+                    <span className="text-gray-400 text-xs text-center">Directeur Juridique</span>
+                  </div>
+                  <div className="aspect-square bg-gray-100 rounded-lg flex items-center justify-center">
+                    <span className="text-gray-400 text-xs text-center">Directeur Communication</span>
+                  </div>
+                </div>
+                <p className="text-sm text-gray-600">Nos directeurs fonctionnels garantissent le bon fonctionnement transversal du groupe</p>
+              </div>
+
+              {/* Photo des pôles opérationnels */}
+              <div className="bg-white rounded-2xl p-6 border border-blue-200">
+                <h3 className="text-xl font-bold text-blue-900 mb-4">🌍 Coordination Internationale</h3>
+                <div className="aspect-video bg-gray-100 rounded-lg flex items-center justify-center mb-3">
+                  <span className="text-gray-400">Photo des implantations internationales</span>
+                </div>
+                <p className="text-sm text-gray-700">
+                  Supervision des entités à l'étranger : NS Logistique Transit France, Afam Services, 
+                  Hotel la Tchaux & Resorts, Campus Latina.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Galerie des pôles opérationnels */}
+          <div className="mt-12">
+            <h3 className="text-2xl font-bold text-blue-800 text-center mb-8">Galerie des Pôles Opérationnels</h3>
+            <div className="grid md:grid-cols-5 gap-4">
+              {[
+                { name: 'Éducation', emoji: '🎓', img: true },
+                { name: 'Juridique', emoji: '⚖️', img: true },
+                { name: 'Santé', emoji: '🏥', img: true },
+                { name: 'Logistique', emoji: '🚚', img: true },
+                { name: 'Hôtellerie', emoji: '🏨', img: true }
+              ].map((pole, index) => (
+                <div key={index} className="text-center">
+                  <div className="bg-white rounded-lg p-4 border border-blue-200 aspect-square flex flex-col items-center justify-center">
+                    <div className="text-2xl mb-2">{pole.emoji}</div>
+                    {pole.img && (
+                      <div className="w-16 h-16 bg-gray-100 rounded-lg mb-2 flex items-center justify-center">
+                        <span className="text-gray-400 text-xs">Photo</span>
+                      </div>
+                    )}
+                    <span className="font-medium text-blue-900 text-sm">{pole.name}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Comités transversaux avec photos */}
+          <div className="mt-8 grid md:grid-cols-2 gap-6">
+            <div className="bg-orange-50 rounded-2xl p-6">
+              <div className="flex items-start gap-4">
+                <div className="flex-1">
+                  <h4 className="font-bold text-orange-800 mb-3">🔄 Comité RSE</h4>
+                  <p className="text-sm text-gray-700 mb-3">
+                    Responsabilité Sociétale des Entreprises : développement durable, inclusion, impact social.
+                  </p>
+                </div>
+                <div className="w-20 h-20 bg-orange-100 rounded-lg flex items-center justify-center">
+                  <span className="text-orange-400 text-xs text-center">Photo comité RSE</span>
+                </div>
+              </div>
+            </div>
+            <div className="bg-purple-50 rounded-2xl p-6">
+              <div className="flex items-start gap-4">
+                <div className="flex-1">
+                  <h4 className="font-bold text-purple-800 mb-3">💡 Comité Digital & Innovation</h4>
+                  <p className="text-sm text-gray-700 mb-3">
+                    Transformation numérique, veille technologique, innovation des processus.
+                  </p>
+                </div>
+                <div className="w-20 h-20 bg-purple-100 rounded-lg flex items-center justify-center">
+                  <span className="text-purple-400 text-xs text-center">Photo comité Digital</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* Section Direction Actuelle */}
         <div className="mb-20">
           <h2 className="text-3xl font-bold text-blue-800 text-center mb-12">Notre Direction</h2>
@@ -109,7 +327,7 @@ export default function About() {
                       <li>• Ouverture de Campus Latina Espagne (2019)</li>
                       <li>• Création de NS Logistique Transit France (2025)</li>
                       <li>• Développement de Samba Automobiles (2016)</li>
-					  <li>• Ratifications de plusieurs partenariats nationaux et internationaux</li>
+                      <li>• Ratifications de plusieurs partenariats nationaux et internationaux</li>
                     </ul>
                   </div>
                 </div>
@@ -144,10 +362,21 @@ export default function About() {
               </div>
             </div>
           </div>
+
+          {/* Photo de l'équipe de direction élargie */}
+          <div className="bg-white rounded-2xl p-8 border border-blue-200">
+            <h3 className="text-2xl font-bold text-blue-900 mb-6 text-center">Notre Équipe de Direction Élargie</h3>
+            <div className="aspect-video bg-gray-100 rounded-xl flex items-center justify-center mb-4">
+              <span className="text-gray-400 text-lg">Photo de l'équipe de direction complète</span>
+            </div>
+            <p className="text-center text-gray-600">
+              Une équipe pluridisciplinaire engagée dans l'excellence et l'innovation
+            </p>
+          </div>
         </div>
 
-        {/* Le reste de votre code reste inchangé */}
-		{/* Section Notre Mission */}
+        {/* Le reste du code reste inchangé */}
+        {/* Section Notre Mission */}
         <div className="bg-blue-900 text-white rounded-2xl p-8 md:p-12 mb-20">
           <div className="grid md:grid-cols-3 gap-8">
             <div>
@@ -183,88 +412,6 @@ export default function About() {
           </div>
         </div>
 
-        {/* Section Héritage et Innovation */}
-        <div className="grid md:grid-cols-2 gap-12 mb-20">
-          <div className="bg-orange-50 rounded-2xl p-8">
-            <h3 className="text-2xl font-bold text-orange-800 mb-4">🏛️ Héritage Préservé</h3>
-            <p className="text-gray-700 mb-4">
-              Nous honorons la mémoire de <strong>Joseph Ndi Samba</strong> en maintenant 
-              les standards d'excellence qu'il a établis et en perpétuant sa vision 
-              éducative humaniste.
-            </p>
-            <ul className="text-gray-700 space-y-2">
-              <li>• Respect des valeurs fondatrices</li>
-              <li>• Maintien de la qualité académique</li>
-              <li>• Engagement communautaire renforcé</li>
-              <li>• Transmission intergénérationnelle</li>
-            </ul>
-          </div>
-          <div className="bg-green-50 rounded-2xl p-8">
-            <h3 className="text-2xl font-bold text-green-800 mb-4">🚀 Innovation Continue</h3>
-            <p className="text-gray-700 mb-4">
-              Sous la direction de <strong>Raymond Samba Ndi</strong>, le groupe 
-              s'engage dans une dynamique d'innovation et d'expansion internationale.
-            </p>
-            <ul className="text-gray-700 space-y-2">
-              <li>• Nouvelles entités stratégiques</li>
-              <li>• Expansion internationale</li>
-              <li>• Innovation médicale avec RIRCO</li>
-              <li>• Digitalisation des services</li>
-            </ul>
-          </div>
-        </div>
-
-        {/* Section Impact */}
-        <div className="bg-gradient-to-r from-blue-600 to-purple-700 rounded-2xl p-8 md:p-12 text-white mb-20">
-          <h2 className="text-3xl font-bold text-center mb-12">Notre Impact</h2>
-          <div className="grid md:grid-cols-4 gap-8 text-center">
-            <div>
-              <div className="text-3xl font-bold mb-2">12</div>
-              <div className="text-blue-100">Entités spécialisées</div>
-            </div>
-            <div>
-              <div className="text-3xl font-bold mb-2">4</div>
-              <div className="text-blue-100">Pays d'implantation</div>
-            </div>
-            <div>
-              <div className="text-3xl font-bold mb-2">300K+</div>
-              <div className="text-blue-100">Étudiants, élèves et techniciens formés</div>
-            </div>
-            <div>
-              <div className="text-3xl font-bold mb-2">500+</div>
-              <div className="text-blue-100">Employés dévoués</div>
-            </div>
-          </div>
-        </div>
-
-        {/* Section Reconnaissances */}
-        <div className="mb-20">
-          <h2 className="text-3xl font-bold text-blue-800 text-center mb-12">Reconnaissances</h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="bg-white border border-blue-200 rounded-xl p-6 text-center">
-              <div className="text-4xl mb-4">🏆</div>
-              <h3 className="font-bold text-blue-900 mb-2">Prix d'Excellence</h3>
-              <p className="text-gray-600 text-sm">
-                Lauréat du Prix National d'Excellence Éducative 2022 reçu par Monsieur Raymond Samba Ndi
-              </p>
-            </div>
-            <div className="bg-white border border-blue-200 rounded-xl p-6 text-center">
-              <div className="text-4xl mb-4">⭐</div>
-              <h3 className="font-bold text-blue-900 mb-2">Accréditations</h3>
-              <p className="text-gray-600 text-sm">
-                Programmes accrédités par le Ministère de l'Enseignement Supérieur
-              </p>
-            </div>
-            <div className="bg-white border border-blue-200 rounded-xl p-6 text-center">
-              <div className="text-4xl mb-4">🤝</div>
-              <h3 className="font-bold text-blue-900 mb-2">Partenariats</h3>
-              <p className="text-gray-600 text-sm">
-                Réseau de 50+ partenaires industriels et académiques internationaux
-              </p>
-            </div>
-          </div>
-        </div>
-
         {/* CTA Section */}
         <div className="text-center bg-blue-50 rounded-2xl p-12">
           <h2 className="text-3xl font-bold text-blue-900 mb-4">
@@ -290,7 +437,6 @@ export default function About() {
             </Link>
           </div>
         </div>
-		                
       </div>
     </div>
   );

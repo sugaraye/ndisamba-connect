@@ -12,8 +12,8 @@ export default function Home() {
       image: "/assets/images/iujs-campus.jpg",
       logo: "/assets/logos/logo-iujs.png",
       link: "/entites/iujs",
-      category: "Éducation",
-      locations: ["Douala", "Yaoundé"],
+      category: "Enseignement supérieur",
+      locations: ["Yaoundé-Tropicana"],
       phone: "+237 689 18 43 39"
     },
     {
@@ -24,8 +24,8 @@ export default function Home() {
       image: "/assets/images/polytech-lab.jpg",
       logo: "/assets/logos/logo-polytech.png",
       link: "/entites/polytech",
-      category: "Enseignement Technique",
-      locations: ["Douala"],
+      category: "Enseignement supérieur",
+      locations: ["Douala-Beedi"],
       phone: "+237 689 18 43 39"
     },
     {
@@ -37,7 +37,7 @@ export default function Home() {
       logo: "/assets/logos/logo-secondaire.png",
       link: "/entites/secondaire",
       category: "Enseignement Secondaire",
-      locations: ["Douala"],
+      locations: ["Yaoundé"],
       phone: "+237 689 18 43 39"
     },
     {
@@ -50,7 +50,7 @@ export default function Home() {
       link: "/entites/logistique-france",
       category: "Logistique",
       locations: ["Paris", "Saint-Étienne"],
-      phone: "+33 1 23 45 67 89"
+      phone: "+33 7 59 44 54 03"
     },
     {
       id: 5,
@@ -73,7 +73,7 @@ export default function Home() {
       logo: "/assets/logos/logo-hotel.png",
       link: "/entites/tchaux",
       category: "Hôtellerie",
-      locations: ["Yaoundé"],
+      locations: ["Yaoundé-Nsimalen"],
       phone: "+237 689 18 43 39"
     }
   ];
@@ -115,7 +115,7 @@ export default function Home() {
           </h1>
           <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto leading-relaxed">
             Le portail numérique du Groupe Ndi Samba Formation et Partenaires — 
-            centralise nos écoles, services et projets d'excellence.
+            La Centrale de nos écoles, services et projets d'excellence.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a 

@@ -16,7 +16,7 @@ export default function EntitesPage() {
       logo: "/assets/logos/logo-iujs.png",
       link: "/entites/iujs",
       category: "Enseignement Supérieur",
-      locations: ["Mvan-Tropicana, Yaoundé", "Face Chapelle EEC, Beedi-Marché, Douala"],
+      locations: ["Mvan-Tropicana, Yaoundé"],
       phone: "+237 689 18 43 39",
       email: "contact@universitedisamba.com"
     },
@@ -42,7 +42,7 @@ export default function EntitesPage() {
       logo: "/assets/logos/logo-secondaire.png",
       link: "/entites/secondaire",
       category: "Enseignement Secondaire",
-      locations: ["Mvog-ada, Yaoundé"],
+      locations: ["Mvog-ada-Chapelle, Yaoundé"],
       phone: "+237 689 18 43 39",
       email: "infos@groupendisambaformation.com"
     },
