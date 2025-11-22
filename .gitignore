@@ -13,3 +13,6 @@ dist/
 *.dll
 *.iso
 *.psd
+
+.env.local
+.env
