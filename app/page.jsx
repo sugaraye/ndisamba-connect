@@ -1,5 +1,6 @@
 // app/page.tsx
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Home() {
   return (
@@ -10,6 +11,21 @@ export default function Home() {
         {/* Overlay bleu avec transparence */}
         <div className="absolute inset-0 bg-blue-900 bg-opacity-70"></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
+          
+          {/* Logo du Groupe - Centré en haut */}
+          <div className="flex justify-center mb-8">
+            <div className="bg-white bg-opacity-20 rounded-2xl p-6 backdrop-blur-sm">
+              <Image
+                src="/assets/logos/logo-gnsf.webp"
+                alt="Logo Groupe Ndi Samba Formation"
+                width={200}
+                height={80}
+                className="object-contain mx-auto"
+                priority
+              />
+            </div>
+          </div>
+
           <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
             Bienvenue sur <span className="text-orange-400">NdiSamba Connect</span>
           </h1>
